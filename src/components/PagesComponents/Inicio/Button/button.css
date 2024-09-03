@@ -1,0 +1,11 @@
+/* button.css */
+
+.buttonAnimated {
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.buttonAnimated:hover {
+  background-color: #78d1c7;
+  color: #ffff;
+}
