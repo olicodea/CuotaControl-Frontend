@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import ButtonTeheme from "./ButtonTheme/ButtonTeheme";
 import { Sling as Hamburger } from 'hamburger-react';
-import logo from "../../assets/img/logo.png";
 import { ThemeContextCustom } from "../Context/ThemeContext";
 
 
@@ -27,7 +26,7 @@ export default function Nav() {
 
             {open && (
 
-                <div className="fixed top-0 left-0 w-full h-full bg-black/50 z-10 flex justify-end ">
+                <div className={`fixed top-0 left-0 w-screen h-full bg-black/50 z-20 flex justify-end ${open ? 'backdrop-blur-sm' : null}`}>
                     <nav className=" fixed top-20 right-0 m-auto">
                         <ul className="flex flex-col items-end gap-6 p-5 pr-10 bg-black/0 h-lvh z-30 ">
                             <li><a href="http://" className={fontNav}>Mi Cuenta</a></li>
@@ -37,7 +36,8 @@ export default function Nav() {
                         </ul>
                     </nav>
                 </div>
-            )}
-        </header>
+            )
+            }
+        </header >
     );
 }

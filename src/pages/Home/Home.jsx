@@ -10,7 +10,7 @@ export default function Home() {
     const { styleDarkHome } = useTheme()
 
     return (
-        <main className={`pb-5 ${styleDarkHome} `}>
+        <main className={`${styleDarkHome} h-svh `}>
             <Resumen deben={154023033} debo={50023033} valorDeben={40} valorDebo={12} />
             <section>
                 <VencimientosARecibir />
