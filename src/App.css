@@ -3,6 +3,11 @@
   src: url("./assets/font/InterVariable.ttf");
 }
 
-a {
+a,
+h1,
+h2,
+p,
+span,
+button {
   font-family: MiFuentePersonalizada;
 }
