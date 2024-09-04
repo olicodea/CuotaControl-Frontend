@@ -12,7 +12,7 @@ export default function Nav() {
         setOpen(prev => !prev);
     };
 
-    console.log(theme)
+
     const fontNav = `${theme === 'dark' ? 'text-slate-100' : ' text-slate-950'} text-xl `;
     return (
         <header className="w-screen flex items-center justify-between p-4 bg-slate-600 h-14 ">

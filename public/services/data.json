@@ -1,0 +1,31 @@
+{
+  "id": 1,
+  "totalDeuda": "1500.75",
+  "totalAFavor": "500.25",
+  "totalDeudaPago": "30.50",
+  "totalAFavorPago": "250.10",
+  "vencimientosDeuda": [
+    {
+      "nroPrestamo": "12345",
+      "cuotaNro": "1",
+      "fechaVencimiento": "2024/10/01"
+    },
+    {
+      "nroPrestamo": "12345",
+      "cuotaNro": "2",
+      "fechaVencimiento": "2024/11/01"
+    }
+  ],
+  "vencimientosAFavor": [
+    {
+      "nroPrestamo": "67890",
+      "cuotaNro": "1",
+      "fechaVencimiento": "2024/09/15"
+    },
+    {
+      "nroPrestamo": "67890",
+      "cuotaNro": "2",
+      "fechaVencimiento": "2024/10/15"
+    }
+  ]
+}
