@@ -8,7 +8,7 @@ import { useStore } from "../../store/useStore";
 const API_URL = "../../../public/services/data.json";
 
 export default function Home() {
-    const { styleDarkHome } = useTheme()
+    const { styleDarkHome, darkResumen } = useTheme()
     const { fetchData } = useStore()
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export default function Home() {
             </section>
             <div className="flex justify-center ">
 
-                <Button name='Nuevo préstamo' style={` ${styleDarkHome}border border-slate-900 border-[1px] w-50 p-2  m-auto rounded-md text-sm font-semibold`} />
+                <Button name='Nuevo préstamo' style={` ${styleDarkHome} ${darkResumen} border  border-[1px] w-50 p-2  m-auto rounded-md text-sm font-semibold`} />
             </div>
         </main>
     )

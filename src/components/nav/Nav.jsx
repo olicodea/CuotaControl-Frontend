@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import ButtonTeheme from "./ButtonTheme/ButtonTeheme";
 import { Sling as Hamburger } from 'hamburger-react';
 import { ThemeContextCustom } from "../Context/ThemeContext";
+import { Link } from "react-router-dom";
 
 
 export default function Nav() {
@@ -18,20 +19,21 @@ export default function Nav() {
         <header className="w-screen flex items-center justify-between p-4 bg-slate-600 h-14 ">
             <h2 className={`${fontNav} font-semibold`}>Couta Control</h2>
 
-            <div className="z-50 flex items-center gap-3">
+            <div className=" z-40 flex items-center gap-3">
 
-                <Hamburger toggled={open} toggle={handleOpen} color={theme === 'dark' ? '#e2e8f0' : '#1e293b'} />
+                <Hamburger toggled={open} toggle={handleOpen} color={'#e2e8f0'} />
             </div>
 
 
             {open && (
 
-                <div className={`fixed top-0 left-0 w-screen h-full bg-black/50 z-20 flex justify-end ${open ? 'backdrop-blur-sm' : null}`}>
+                <div className={`fixed top-0 left-0 w-screen h-full bg-black/50 z-30 flex justify-end ${open ? 'backdrop-blur-sm' : null}`}>
                     <nav className=" fixed top-20 right-0 m-auto">
                         <ul className="flex flex-col items-end gap-6 p-5 pr-10 bg-black/0 h-lvh z-30 ">
-                            <li><a href="http://" className={fontNav}>Mi Cuenta</a></li>
-                            <li><a href="http://" className={fontNav}>Prestamo</a></li>
-                            <li><a href="http://" className={fontNav}>Contacto</a></li>
+                            <li><Link to='/' className={fontNav}>Resumen</Link></li>
+                            <li><Link to='mi-cuenta' className={fontNav}>Mi Cuenta</Link></li>
+                            <li><Link to='prestamos' className={fontNav}>Prestamos</Link></li>
+                            <li><Link to="contacto" className={fontNav}>Contacto</Link></li>
                             <ButtonTeheme handleTheme={handleTheme} theme={theme} />
                         </ul>
                     </nav>

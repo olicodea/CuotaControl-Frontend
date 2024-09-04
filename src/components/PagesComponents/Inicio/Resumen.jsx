@@ -20,7 +20,7 @@ export default function Resumen() {
             <h1 className="font-semibold text-xl">Resumen</h1>
             <div className=" flex flex-col">
                 <h2 className="font-normal">Me deben <strong>${new Intl.NumberFormat("es-AR").format(parseInt(totalAFavor))} ARS</strong></h2>
-                <p className={`text-sm t ${pDark}`}>Porcentaje cobrado</p>
+                <p className={`text-sm  ${pDark}`}>Porcentaje cobrado</p>
                 <Range nameInput='cobrado' valor={porcentajeTotalAFavor} deuda={parseInt(totalAFavor)} color1='3EBDAf' color2={'E2E8F0'} />
             </div>
             <div>
@@ -29,7 +29,7 @@ export default function Resumen() {
                 <Range nameInput='cobrado' valor={porcentajeDeudaPago} deuda={parseInt(totalDeuda)} color1='F77B73' color2='E2E8F0' />
             </div>
 
-            <Button name='Lista de préstamo' style={`${darkResumen} border border-slate-900 border-[1px] w-50 p-2  m-auto rounded-md text-sm font-semibold`} />
+            <Button name='Lista de préstamo' style={`border border-[1px] w-50 p-2  m-auto rounded-md text-sm font-semibold ${darkResumen}`} />
 
         </section>
     )

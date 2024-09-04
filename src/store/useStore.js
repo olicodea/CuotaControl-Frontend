@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 // Creación de la store usando zustand
-export const useStore = create((set, get) => ({
+export const useStore = create((set) => ({
   getData: [],
 
   // Función para obtener datos de la API
