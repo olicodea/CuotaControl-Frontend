@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import Prestamos from './pages/Prestamos/Prestamos';
 import Contacto from './pages/Contacto/Contacto';
 import MiCuenta from './pages/Mi Cuenta/MiCuenta';
+import NotPage from './pages/NotPage/NotPage';
 
 function App() {
     return (
@@ -16,6 +17,8 @@ function App() {
                 <Route path='mi-cuenta' element={<MiCuenta />} />
                 <Route path='prestamos' element={<Prestamos />} />
                 <Route path='contacto' element={<Contacto />} />
+                <Route path='*' element={<NotPage />} />
+
             </Routes>
         </ThemeContextProvider>
     );

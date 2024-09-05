@@ -5,14 +5,16 @@ import VencimientosARecibir from "../../components/PagesComponents/Inicio/Vencim
 import useTheme from "../../components/Hooks/useTheme";
 import { useEffect } from "react";
 import { useStore } from "../../store/useStore";
-const API_URL = "../../../public/services/data.json";
+const API_URL = import.meta.env.VITE_API_URL
+const ENDPOINT = import.meta.env.VITE_HOME_ENDPOINT
+
 
 export default function Home() {
     const { styleDarkHome, darkResumen } = useTheme()
     const { fetchData } = useStore()
 
     useEffect(() => {
-        fetchData(API_URL)
+        fetchData(`${API_URL}${ENDPOINT}`)
     }, [fetchData])
 
     return (
@@ -21,10 +23,8 @@ export default function Home() {
             <section>
                 <VencimientosARecibir />
                 <VencimientosAPagar />
-
             </section>
             <div className="flex justify-center ">
-
                 <Button name='Nuevo préstamo' style={` ${styleDarkHome} ${darkResumen} border  border-[1px] w-50 p-2  m-auto rounded-md text-sm font-semibold`} />
             </div>
         </main>

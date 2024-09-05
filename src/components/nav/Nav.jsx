@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import ButtonTeheme from "./ButtonTheme/ButtonTeheme";
 import { Sling as Hamburger } from 'hamburger-react';
 import { ThemeContextCustom } from "../Context/ThemeContext";
@@ -9,9 +9,19 @@ export default function Nav() {
     const [open, setOpen] = useState(false);
     const { theme, handleTheme } = useContext(ThemeContextCustom)
 
+    const positionMouse = useRef(null)
+
     const handleOpen = () => {
         setOpen(prev => !prev);
     };
+
+    const handleClick = (e) => {
+        if (!positionMouse.current.contains(e.target)) {
+            setOpen(prev => !prev)
+
+        }
+    }
+
 
 
     const fontNav = `${theme === 'dark' ? 'text-slate-100' : ' text-slate-950'} text-xl `;
@@ -27,9 +37,9 @@ export default function Nav() {
 
             {open && (
 
-                <div className={`fixed top-0 left-0 w-screen h-full bg-black/50 z-30 flex justify-end ${open ? 'backdrop-blur-sm' : null}`}>
-                    <nav className=" fixed top-20 right-0 m-auto">
-                        <ul className="flex flex-col items-end gap-6 p-5 pr-10 bg-black/0 h-lvh z-30 ">
+                <div className={`fixed top-0 left-0 w-screen h-full bg-black/50 z-30 flex justify-end ${open ? 'backdrop-blur-sm' : null}`} onClick={handleClick} >
+                    <nav className=" fixed top-14 right-0 m-auto" ref={positionMouse}>
+                        <ul className="flex flex-col items-end gap-6 p-5 pr-10 bg-black/0 h-lvh z-30 bg-slate-400  "  >
                             <li><Link to='/' className={fontNav}>Resumen</Link></li>
                             <li><Link to='mi-cuenta' className={fontNav}>Mi Cuenta</Link></li>
                             <li><Link to='prestamos' className={fontNav}>Prestamos</Link></li>
