@@ -17,6 +17,7 @@ export default function Range({ nameInput, TotalPago, Totaldeuda, porcentaje, co
                 min={0}
                 max={Totaldeuda}
                 className='range-input'
+
                 style={{
                     background: porcentaje === 100
                         ? `#${color1}`

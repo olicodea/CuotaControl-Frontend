@@ -18,14 +18,14 @@ export default function Home() {
     }, [fetchData])
 
     return (
-        <main className={`${styleDarkHome} h-svh `}>
+        <main className={`${styleDarkHome} h-svh`}>
             <Resumen />
-            <section>
+            <section className=" bg-slate-500 m-auto w-screen h-auto">
                 <VencimientosARecibir />
                 <VencimientosAPagar />
             </section>
-            <div className="flex justify-center ">
-                <Button name='Nuevo préstamo' style={` ${styleDarkHome} ${darkResumen} border  border-[1px] w-50 p-2  m-auto rounded-md text-sm font-semibold`} />
+            <div className="flex justify-center">
+                <Button name='Nuevo préstamo' style={` ${styleDarkHome} ${darkResumen} border  border-[1px] w-50 p-2  m-auto rounded-md text-sm font-semibold mb-6`} />
             </div>
         </main>
     )
