@@ -39,7 +39,7 @@ export default function Nav() {
 
                 <div className={`fixed top-0 left-0 w-screen h-full bg-black/50 z-30 flex justify-end ${open ? 'backdrop-blur-sm' : null}`} onClick={handleClick} >
                     <nav className=" fixed top-14 right-0 m-auto" ref={positionMouse}>
-                        <ul className="flex flex-col items-end gap-6 p-5 pr-10 bg-black/0 h-lvh z-30 bg-slate-400  "  >
+                        <ul className="flex flex-col items-end gap-6 p-5 pr-10 bg-black/0 h-lvh z-30   "  >
                             <li><Link to='/' className={fontNav}>Resumen</Link></li>
                             <li><Link to='mi-cuenta' className={fontNav}>Mi Cuenta</Link></li>
                             <li><Link to='prestamos' className={fontNav}>Prestamos</Link></li>

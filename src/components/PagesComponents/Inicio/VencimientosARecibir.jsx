@@ -29,7 +29,7 @@ export default function VencimientosARecibir() {
             <div className='slider-container'>
                 <Slider {...settings} className=' flex h-40 w-full  m-auto p-3 '>
                     {
-                        vencimientosData.length > 0 ? vencimientosData.map((prop, index) => { //verificar este index , le tengo que padar el id cuando lo generemos.
+                        vencimientosData.length > 0 ? vencimientosData.slice(0, 4).map((prop, index) => { //verificar este index , le tengo que padar el id cuando lo generemos.
                             const { nroPrestamo, cuotaNro, fechaVencimiento } = prop;
 
                             return <Card title={nroPrestamo} cuota={cuotaNro} fecha={fechaVencimiento} key={index} />

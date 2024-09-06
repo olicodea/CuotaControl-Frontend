@@ -18,9 +18,9 @@ export default function Home() {
     }, [fetchData])
 
     return (
-        <main className={`${styleDarkHome} h-svh`}>
+        <main className={`${styleDarkHome} h-auto`}>
             <Resumen />
-            <section className=" bg-slate-500 m-auto w-screen h-auto">
+            <section >
                 <VencimientosARecibir />
                 <VencimientosAPagar />
             </section>

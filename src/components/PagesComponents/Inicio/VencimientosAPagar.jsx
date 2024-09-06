@@ -25,6 +25,8 @@ export default function VencimientosAPagar() {
         nextArrow: 0,
         prevArrow: 0,
     };
+
+
     return (
         <section className='h-auto  w-screen m-auto '>
             <h2 className='font-semibold text-xl pl-4'>Próximos vencimientos a pagar</h2>
@@ -35,7 +37,7 @@ export default function VencimientosAPagar() {
 
                     {
                         dataVencimientosDeuda.length > 0 ?
-                            dataVencimientosDeuda.map((prop, index) => {
+                            dataVencimientosDeuda.slice(0, 4).map((prop, index) => {
                                 const { nroPrestamo, cuotaNro, fechaVencimiento } = prop
 
                                 return <Card title={nroPrestamo} cuota={cuotaNro} fecha={fechaVencimiento} key={index} />
