@@ -14,7 +14,10 @@ export default function Home() {
     const { fetchData } = useStore()
 
     useEffect(() => {
+
         fetchData(`${API_URL}${ENDPOINT}`)
+
+
     }, [fetchData])
 
     return (
