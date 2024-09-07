@@ -8,22 +8,21 @@ export default function Prestamos() {
     const [filteredData, setFilteredData] = useState([]);
     const [filter, setFilter] = useState('all');
 
-
+    const fetchPrestamo = async () => {
+        try {
+            const response = await fetch(API_URLPRESTAMOS);
+            if (!response.ok) {
+                throw new Error('Error');
+            }
+            const data = await response.json();
+            setDataPrestamo(data);
+            setFilteredData(data);
+        } catch (error) {
+            console.error('Fetch error:', error);
+        }
+    };
 
     useEffect(() => {
-        const fetchPrestamo = async () => {
-            try {
-                const response = await fetch(API_URLPRESTAMOS);
-                if (!response.ok) {
-                    throw new Error('Error');
-                }
-                const data = await response.json();
-                setDataPrestamo(data);
-                setFilteredData(data);
-            } catch (error) {
-                console.error('Fetch error:', error);
-            }
-        };
         fetchPrestamo();
     }, []);
 
@@ -32,11 +31,12 @@ export default function Prestamos() {
         const selectedFilter = e.target.value;
         setFilter(selectedFilter);
 
-        const newData = selectedFilter === 'todos'
+        const newData = selectedFilter === 'all'
             ? dataPrestamo
             : dataPrestamo.filter(item => item.estadoPrestamo === selectedFilter);
 
         setFilteredData(newData);
+
     }, [dataPrestamo]);
 
     return (
