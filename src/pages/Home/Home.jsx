@@ -10,7 +10,7 @@ const ENDPOINT = import.meta.env.VITE_HOME_ENDPOINT
 
 
 export default function Home() {
-    const { styleDarkHome, darkResumen } = useTheme()
+    const { styleDarkHome } = useTheme()
     const { fetchData } = useStore()
 
     useEffect(() => {

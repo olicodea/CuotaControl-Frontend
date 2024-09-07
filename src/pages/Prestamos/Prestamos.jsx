@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import CardPestamos from "../../components/PagesComponents/Prestamos/Card/CardPestamos";
+import useTheme from "../../components/Hooks/useTheme";
 
 const API_URLPRESTAMOS = "../../../public/services/data.json";
 
@@ -7,6 +8,7 @@ export default function Prestamos() {
     const [dataPrestamo, setDataPrestamo] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [filter, setFilter] = useState('all');
+    const { styleDarkHome, selectTheme } = useTheme()
 
     const fetchPrestamo = async () => {
         try {
@@ -40,10 +42,11 @@ export default function Prestamos() {
     }, [dataPrestamo]);
 
     return (
-        <div>
+        <div className={`${styleDarkHome} h-screen`}>
             <header className="flex justify-between p-5">
                 <h1>Lista de préstamos</h1>
-                <select id="Options" onChange={handleChangeFilter} value={filter}>
+                <select id="Options" onChange={handleChangeFilter} value={filter} className={selectTheme}
+                >
                     <option value="all">Todos</option>
                     <option value="dado">Prestado</option>
                     <option value="pedido">Pedido</option>
