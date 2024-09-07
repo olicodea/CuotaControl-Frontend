@@ -53,8 +53,8 @@ export default function Resumen() {
 
             <Button
                 name='Lista de préstamo'
-                style={`border border-[1px] w-50 p-2 m-auto rounded-md text-sm font-semibold ${darkResumen}`}
                 route='prestamos'
+                style='m-auto'
             />
         </section>
     );
