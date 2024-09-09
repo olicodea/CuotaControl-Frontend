@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import "../Range/range.css";
 import { ThemeContextCustom } from "../../../Context/ThemeContext";
+import PropTypes from 'prop-types';
 
 export default function Range({ nameInput, TotalPago, Totaldeuda, porcentaje, color1, color2 }) {
     const { theme } = useContext(ThemeContextCustom);
@@ -13,7 +14,7 @@ export default function Range({ nameInput, TotalPago, Totaldeuda, porcentaje, co
             <input
                 type="range"
                 name={nameInput}
-                value={TotalPago}
+                defaultValue={TotalPago}
                 min={0}
                 max={Totaldeuda}
                 className='range-input'
@@ -27,3 +28,13 @@ export default function Range({ nameInput, TotalPago, Totaldeuda, porcentaje, co
         </label>
     );
 }
+
+
+Range.propTypes = {
+    nameInput: PropTypes.string.isRequired,
+    TotalPago: PropTypes.number.isRequired,
+    Totaldeuda: PropTypes.number.isRequired,
+    porcentaje: PropTypes.number.isRequired,
+    color1: PropTypes.string.isRequired,
+    color2: PropTypes.string.isRequired,
+};

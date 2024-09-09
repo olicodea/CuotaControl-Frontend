@@ -21,14 +21,14 @@ export default function Home() {
     }, [fetchData])
 
     return (
-        <main className={`${styleDarkHome} h-screen`}>
+        <main className={`${styleDarkHome} h-auto`}>
             <Resumen />
             <section >
                 <VencimientosARecibir />
                 <VencimientosAPagar />
             </section>
             <div className="flex justify-center">
-                <Button name='Nuevo préstamo' />
+                <Button name='Nuevo préstamo' style={'mb-6'} />
             </div>
         </main>
     )

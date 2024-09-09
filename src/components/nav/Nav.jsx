@@ -41,9 +41,9 @@ export default function Nav() {
                     <nav className=" fixed top-14 right-0 m-auto" ref={positionMouse}>
                         <ul className="flex flex-col items-end gap-6 p-5 pr-10 bg-black/0 h-lvh z-30   "  >
                             <li><Link to='/' className={fontNav}>Resumen</Link></li>
-                            <li><Link to='mi-cuenta' className={fontNav}>Mi Cuenta</Link></li>
-                            <li><Link to='prestamos' className={fontNav}>Prestamos</Link></li>
-                            <li><Link to="contacto" className={fontNav}>Contacto</Link></li>
+                            <li><Link to='/mi-cuenta' className={fontNav}>Mi Cuenta</Link></li>
+                            <li><Link to='/prestamos' className={fontNav}>Prestamos</Link></li>
+                            <li><Link to="/contacto" className={fontNav}>Contacto</Link></li>
                             <ButtonTeheme handleTheme={handleTheme} theme={theme} />
                         </ul>
                     </nav>

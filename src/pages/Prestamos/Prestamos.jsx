@@ -3,6 +3,7 @@ import useTheme from "../../components/Hooks/useTheme";
 import { useStore } from "../../store/useStore";
 import HeaderPrestamo from "../../components/PagesComponents/Prestamos/HeaderPrestamo";
 import ContainerCard from "../../components/PagesComponents/Prestamos/Card/ContainerCard";
+import { Link } from "react-router-dom";
 
 const API_URLPRESTAMOS = "../../../public/services/data.json";
 
@@ -38,14 +39,17 @@ export default function Prestamos() {
         setFilter(selectedFilter);
 
     }, [])
-
+    // ponerle un scroll al main 
     return (
-        <div className={`${styleDarkHome} h-screen`}>
+        <div className={`${styleDarkHome} h-auto`}>
             <HeaderPrestamo handleChangeFilter={handleChangeFilter} filte={filter} selectTheme={selectTheme} />
-            <main className="w-screen h-auto">
+            <main className="w-screen h-auto" >
                 <h4 className="pl-4">{filter === 'dado' ? "Prestados" : filter === 'pedido' ? "Pedidos" : "Todos"}</h4>
                 <ContainerCard stateFilter={stateFilter} />
             </main>
+            <footer className="p-5 flex justify-start items-center">
+                {filter === 'all' ? <Link to='/'>Vovler Atras</Link> : ''}
+            </footer>
         </div >
     );
 }

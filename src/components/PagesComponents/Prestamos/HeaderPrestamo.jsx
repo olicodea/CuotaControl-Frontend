@@ -1,4 +1,4 @@
-import React from 'react'
+import PropTypes from 'prop-types';
 
 export default function HeaderPrestamo({ handleChangeFilter, filter, selectTheme }) {
     return (
@@ -13,3 +13,9 @@ export default function HeaderPrestamo({ handleChangeFilter, filter, selectTheme
         </header>
     )
 }
+
+HeaderPrestamo.propTypes = {
+    handleChangeFilter: PropTypes.func.isRequired,
+    filter: PropTypes.string.isRequired,
+    selectTheme: PropTypes.string.isRequired
+};

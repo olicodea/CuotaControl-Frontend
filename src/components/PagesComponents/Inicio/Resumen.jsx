@@ -6,7 +6,7 @@ import calcularPorcentaje from "../../Hooks/usePorcentaje";
 
 
 export default function Resumen() {
-    const { darkResumen, pDark } = useTheme();
+    const { pDark } = useTheme();
     const data = useStore(state => state.getData);
     const { totalAFavor, totalAFavorPago, totalDeuda, totalDeudaPago } = data || {};
 

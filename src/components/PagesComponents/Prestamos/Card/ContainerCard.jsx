@@ -15,6 +15,7 @@ export default function ContainerCard({ stateFilter }) {
                             nroPrestamo={nroPrestamo}
                             porcentajeCumplido={porcentajeCumplido}
                             estadoPrestamo={estadoPrestamo}
+                            id={id}
                         />
                     );
                 })

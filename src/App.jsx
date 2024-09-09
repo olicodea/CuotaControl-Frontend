@@ -7,6 +7,7 @@ import Prestamos from './pages/Prestamos/Prestamos';
 import Contacto from './pages/Contacto/Contacto';
 import MiCuenta from './pages/Mi Cuenta/MiCuenta';
 import NotPage from './pages/NotPage/NotPage';
+import VerDetalles from './pages/Prestamos/VerDetalles';
 
 function App() {
     return (
@@ -14,9 +15,10 @@ function App() {
             <Nav />
             <Routes>
                 <Route path='/' element={<Home />} />
-                <Route path='mi-cuenta' element={<MiCuenta />} />
-                <Route path='prestamos' element={<Prestamos />} />
-                <Route path='contacto' element={<Contacto />} />
+                <Route path='/mi-cuenta' element={<MiCuenta />} />
+                <Route path='/prestamos' element={<Prestamos />} />
+                <Route path='/contacto' element={<Contacto />} />
+                <Route path='/ver-detalles/:id' element={<VerDetalles />} />
                 <Route path='*' element={<NotPage />} />
 
             </Routes>
