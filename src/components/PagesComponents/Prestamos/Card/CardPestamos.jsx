@@ -8,7 +8,7 @@ export default function CardPestamos({ nombreContacto, nroPrestamo, porcentajeCu
 
 
     return (
-        <article className={`flex flex-col p-2 w-11/12 rounded-md cardStyle  m-auto hover:scale-105 transition-transform duration-500 ${darkCard} mt-3`}>
+        <article className={`flex flex-col p-2 w-11/12 rounded-md cardStyle  m-auto hover:scale-105 transition-transform duration-500 ${darkCard} mt-3 `}>
             <div className={`justify-between flex`}>
                 <h2>Prestamo Nº {nroPrestamo}</h2>
                 <Button name='Ver detalles' route={`/ver-detalles/${id}`} />

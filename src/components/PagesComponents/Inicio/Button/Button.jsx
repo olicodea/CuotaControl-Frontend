@@ -10,5 +10,5 @@ export default function Button({ name, style, route }) {
 Button.propTypes = {
     name: PropTypes.string.isRequired,
     style: PropTypes.string,
-    route: PropTypes.string.isRequired
+    route: PropTypes.string.isRequired,
 };

@@ -11,9 +11,12 @@ import VerDetalles from './pages/Prestamos/VerDetalles';
 
 function App() {
     return (
+
         <ThemeContextProvider>
+
             <Nav />
             <Routes>
+
                 <Route path='/' element={<Home />} />
                 <Route path='/mi-cuenta' element={<MiCuenta />} />
                 <Route path='/prestamos' element={<Prestamos />} />
@@ -22,7 +25,14 @@ function App() {
                 <Route path='*' element={<NotPage />} />
 
             </Routes>
+
+
+
+
+
         </ThemeContextProvider>
+
+
     );
 }
 

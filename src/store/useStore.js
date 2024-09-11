@@ -46,6 +46,7 @@ export const useStore = create((set, get) => ({
       console.error("Error en la solicitud de datos:", error);
     }
   },
+  // Obtener los datos de los detalles
   fetchDetalles: async (url) => {
     try {
       const response = await fetch(url);
@@ -62,5 +63,9 @@ export const useStore = create((set, get) => ({
   getDetalles: (id) => {
     const { detalles } = get();
     return detalles.find((prestamo) => prestamo.id === id);
+  },
+
+  EditDetalles: (id, data) => {
+    console.log(id, data);
   },
 }));

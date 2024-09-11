@@ -5,6 +5,7 @@ export default function ContainerCard({ stateFilter }) {
     return (
         <>
 
+
             {stateFilter.length > 0 ? (
                 stateFilter.map(item => {
                     const { id, nombreContacto, nroPrestamo, porcentajeCumplido, estadoPrestamo } = item;
@@ -22,6 +23,7 @@ export default function ContainerCard({ stateFilter }) {
             ) : (
                 <p>No hay datos disponibles.</p>
             )}
+
         </>
     )
 }

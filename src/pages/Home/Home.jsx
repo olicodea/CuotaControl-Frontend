@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useStore } from "../../store/useStore";
 const API_URL = import.meta.env.VITE_API_URL
 const ENDPOINT = import.meta.env.VITE_HOME_ENDPOINT
-
+// const query = import.meta.env.VITE_QUERY
 
 export default function Home() {
     const { styleDarkHome } = useTheme()

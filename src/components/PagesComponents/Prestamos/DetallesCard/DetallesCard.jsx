@@ -1,59 +1,140 @@
 import useTheme from '../../../Hooks/useTheme';
 import { RiDeleteBinLine } from "react-icons/ri";
-import { CiEdit } from "react-icons/ci";
 import PropTypes from 'prop-types';
+import Range from "../../Inicio/Range/Range";
+import { useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-import Range from "../../Inicio/Range/Range"
-import { useState } from 'react';
 
 export default function DetallesCard({ obj = {} }) {
-    const [nota, setNota] = useState(false)
-    const { darkCard } = useTheme()
-    const { nroPrestamo, nombreContacto, porcentajeCumplido, estadoPrestamo, montoTotal, montoPagado, descripcion } = obj;
+    const [nota, setNota] = useState(false);
+    const { darkCard } = useTheme();
+    const { handleSubmit, register } = useForm()
 
-    const restante = montoTotal - montoPagado;
+    const [isFocused, setIsFocused] = useState(false)
 
-    return <article className={`flex flex-col p-2 w-11/12 rounded-md cardStyle  m-auto ${darkCard} mt-3`}>
-        <div className={`justify-between flex`}>
-            <h2>Prestamo Nº {nroPrestamo}</h2>
-            <div className='flex gap-6'>
-                <CiEdit className='size-6' />
-                <RiDeleteBinLine className='size-6' />
+    const inputRef = useRef(false)
+    const handleFocus = () => setIsFocused(true);
+    const handleBlur = () => setIsFocused(false);
 
+    const restante = obj.montoTotal - obj.montoPagado;
+
+    const handleChange = (data) => {
+        console.log(data)
+    };
+
+
+
+    return (
+        <article className={`flex flex-col p-2 w-11/12 rounded-md cardStyle m-auto ${darkCard} mt-3`}>
+            <div className={`justify-between flex`}>
+                <h2>Prestamo Nº {obj.nroPrestamo}</h2>
+                <div className='flex gap-6'>
+                    <RiDeleteBinLine className='size-6 cursor-pointer' />
+                </div>
             </div>
+            <div >
+                <form onSubmit={handleSubmit(handleChange)} className='flex flex-col justify-start p-2 gap-2' >
+                    <article>
+                        <label>
+                            Contacto:
+                            <input
+                                type="text"
+                                name="nombre"
+                                {...register("nombre")}
+                                className='bg-transparent'
+                                ref={inputRef}
+                                onFocus={handleFocus}
+                                onBlur={handleBlur}
+                            />
 
-        </div>
-        <div className='flex flex-col justify-start p-2 gap-2'>
-            <article>
-                <h3>Contacto: {nombreContacto}</h3>
-                <h4>Tipo: Entrengado</h4>
-            </article>
-            <article>
-                <h5>Total prestado: ${montoTotal}</h5>
-                <h5>Total cobrado: ${montoPagado}</h5>
-                <h5>Restante por cobrar: ${restante}</h5>
-            </article>
+                        </label>
+                        <label>
+                            Tipo: <input
+                                type="text"
+                                name="estado"
+                                {...register("estado")}
+                                className='bg-transparent'
+                                ref={inputRef}
+                                onFocus={handleFocus}
+                                onBlur={handleBlur}
+                            />
+                        </label>
+                    </article>
+                    <article>
+                        <label>
+                            Total prestado: $
+                            <input
+                                type="text"
+                                name="prestado"
+                                {...register("prestado")}
+                                className='bg-transparent'
+                                ref={inputRef}
+                                onFocus={handleFocus}
+                                onBlur={handleBlur}
+                            />
+                        </label>
+                        <label>
+                            Total cobrado: $
+                            <input
+                                type="text"
+                                name="cobrado"
+                                {...register("cobrado")}
+                                className='bg-transparent'
+                                ref={inputRef}
+                                onFocus={handleFocus}
+                                onBlur={handleBlur}
 
+                            />
+                        </label>
+                        <label>
+                            Restante: $
+                            <input
+                                type="text"
+                                name="restante"
+                                value={restante}
+                                disabled
+                                className='bg-transparent'
 
-            <h4 >PorcentajeCumplido</h4>
-            <Range nameInput='Pedidos' TotalPago={montoPagado} Totaldeuda={montoTotal} porcentaje={porcentajeCumplido} color1={estadoPrestamo !== 'dado' ? '3EBDAf' : 'F77B73'}
-                color2={'E2E8F0'} />
+                            />
+                        </label>
+                    </article>
 
+                    <h4>Porcentaje Cumplido</h4>
+                    <Range
+                        nameInput='Pedidos'
+                        TotalPago={obj.montoPagado}
+                        Totaldeuda={obj.montoTotal}
+                        porcentaje={obj.porcentajeCumplido}
+                        color1={obj.estadoPrestamo !== 'dado' ? '3EBDAf' : 'F77B73'}
+                        color2={'E2E8F0'}
+                    />
 
-            <ins onClick={() => setNota(!nota)} className='cursor-pointer'> Ver Nota </ins>
-            <div className={`overflow-hidden transition-all duration-500 ease-out ${nota ? 'max-h-40' : 'max-h-0'}`}>
-                <span>{descripcion}</span>
+                    <span className='justify-between flex'>
+                        <ins onClick={() => setNota(!nota)} className='cursor-pointer'> Ver Nota </ins>
+
+                    </span>
+                    <div className={`overflow-hidden transition-all duration-500 ease-out ${nota ? 'max-h-60' : 'max-h-0'}`}>
+                        <label>
+                            Descripción:
+                            <input
+                                type="text"
+                                name="descripcion"
+                                {...register("descripcion")}
+                                className='bg-transparent'
+                                ref={inputRef}
+                                onFocus={handleFocus}
+                                onBlur={handleBlur}
+                            />
+                        </label>
+                    </div>
+                    <input type="submit" value="Guardar" className={`p-2 ${isFocused ? 'block' : 'hidden'}`} />
+                </form>
             </div>
-        </div>
-
-
-
-    </article >
-
+        </article>
+    )
 
 }
-
-
 DetallesCard.propTypes = {
     obj: PropTypes.shape({
         nroPrestamo: PropTypes.number.isRequired,
@@ -64,4 +145,3 @@ DetallesCard.propTypes = {
         montoPagado: PropTypes.number.isRequired,
     }).isRequired,
 };
-
