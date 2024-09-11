@@ -22,6 +22,7 @@ export default function DetallesCard({ obj = {} }) {
     const handleChange = (data) => {
         console.log(data)
     };
+    console.log(obj)
 
 
 
@@ -36,7 +37,7 @@ export default function DetallesCard({ obj = {} }) {
             <div >
                 <form onSubmit={handleSubmit(handleChange)} className='flex flex-col justify-start p-2 gap-2' >
                     <article>
-                        <label>
+                        <label> {' '}
                             Contacto:
                             <input
                                 type="text"
@@ -46,6 +47,7 @@ export default function DetallesCard({ obj = {} }) {
                                 ref={inputRef}
                                 onFocus={handleFocus}
                                 onBlur={handleBlur}
+                                value={obj.nombreContacto}
                             />
 
                         </label>
@@ -58,6 +60,7 @@ export default function DetallesCard({ obj = {} }) {
                                 ref={inputRef}
                                 onFocus={handleFocus}
                                 onBlur={handleBlur}
+                                value={obj.estadoPrestamo}
                             />
                         </label>
                     </article>
@@ -72,6 +75,7 @@ export default function DetallesCard({ obj = {} }) {
                                 ref={inputRef}
                                 onFocus={handleFocus}
                                 onBlur={handleBlur}
+                                value={obj.montoTotal}
                             />
                         </label>
                         <label>
@@ -84,6 +88,7 @@ export default function DetallesCard({ obj = {} }) {
                                 ref={inputRef}
                                 onFocus={handleFocus}
                                 onBlur={handleBlur}
+                                value={obj.montoPagado}
 
                             />
                         </label>
@@ -125,6 +130,7 @@ export default function DetallesCard({ obj = {} }) {
                                 ref={inputRef}
                                 onFocus={handleFocus}
                                 onBlur={handleBlur}
+                                value={obj.descripcion}
                             />
                         </label>
                     </div>
