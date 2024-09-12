@@ -2,38 +2,46 @@ import useTheme from '../../../Hooks/useTheme';
 import { RiDeleteBinLine } from "react-icons/ri";
 import PropTypes from 'prop-types';
 import Range from "../../Inicio/Range/Range";
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useStore } from '../../../../store/useStore';
 import { CiEdit } from "react-icons/ci";
 
 export default function DetallesCard({ obj = {} }) {
     const [nota, setNota] = useState(false);
+    const [isFocus, setIsFocus] = useState(false);
     const { darkCard } = useTheme();
-    const { handleSubmit, register } = useForm()
-    const EditDetalles = useStore(state => state.EditDetalles)
-    const focusRef = useRef(null)
-
-    // const handleFocus = () => setIsFocused(true);
-    // const handleBlur = () => setIsFocused(false);
+    const { handleSubmit, register } = useForm();
+    const EditDetalles = useStore(state => state.EditDetalles);
+    const focusRef = useRef(null);
 
     const restante = obj.montoTotal - obj.montoPagado;
-    console.log(obj)
+
+    const handleClickFocus = () => {
+        setIsFocus(true);
+    };
+
+    useEffect(() => {
+        if (isFocus && focusRef.current) {
+            focusRef.current.focus();
+        }
+    }, [isFocus]);
 
     const handleChange = (data) => {
-        const id = obj.id
-        EditDetalles(id, data)
-    }
-    const handleClickFocus = () => {
-        focusRef.current.focus()
-    }
+        const id = obj.id;
+        EditDetalles(id, data);
+        setIsFocus(false);
+    };
+
+    const disabled = !isFocus;
+
+
     return (
         <article className={`flex flex-col p-2 w-11/12 rounded-md cardStyle m-auto ${darkCard} mt-3`}>
             <div className={`justify-between flex`}>
                 <h2>Prestamo Nº {obj.nroPrestamo}</h2>
                 <div className='flex gap-6'>
-                    <CiEdit onClick={handleClickFocus} className='size-6 cursor-pointer' />
-
+                    <button onClick={handleClickFocus}><CiEdit className='size-6 cursor-pointer' /></button>
                     <RiDeleteBinLine className='size-6 cursor-pointer' />
                 </div>
             </div>
@@ -47,9 +55,8 @@ export default function DetallesCard({ obj = {} }) {
                             {...register("nombreContacto")}
                             className='bg-transparent'
                             defaultValue={obj.nombreContacto}
+                            disabled={disabled}
                             ref={focusRef}
-
-
                         />
                     </label>
                     <label htmlFor='estadoPrestamo'>
@@ -59,7 +66,7 @@ export default function DetallesCard({ obj = {} }) {
                             {...register("estadoPrestamo")}
                             className='bg-transparent'
                             defaultValue={obj.estadoPrestamo}
-
+                            disabled={disabled}
                         />
                     </label>
 
@@ -70,7 +77,7 @@ export default function DetallesCard({ obj = {} }) {
                             {...register("montoTotal")}
                             className='bg-transparent'
                             defaultValue={obj.montoTotal}
-
+                            disabled={disabled}
                         />
                     </label>
                     <label htmlFor='montoPagado'>
@@ -80,7 +87,7 @@ export default function DetallesCard({ obj = {} }) {
                             {...register("montoPagado")}
                             className='bg-transparent'
                             defaultValue={obj.montoPagado}
-
+                            disabled={disabled}
                         />
                     </label>
                     <label htmlFor='restante'>
@@ -114,17 +121,17 @@ export default function DetallesCard({ obj = {} }) {
                                 {...register("descripcion")}
                                 className='bg-transparent w-4/5 pl-2'
                                 defaultValue={obj.descripcion}
-
+                                disabled={disabled}
                             />
                         </label>
                     </div>
-                    <button type="submit" className={`p-2 cursor-pointer `}>Guardar</button>
+                    <button type="submit" className={`p-2 cursor-pointer ${isFocus ? 'flex' : 'hidden'} m-auto`} >Guardar</button>
+
                 </form>
             </div>
         </article>
     );
 }
-
 
 DetallesCard.propTypes = {
     obj: PropTypes.shape({

@@ -6,17 +6,16 @@ import useTheme from "../../components/Hooks/useTheme";
 import { useEffect } from "react";
 import { useStore } from "../../store/useStore";
 const API_URL = import.meta.env.VITE_API_URL
-const ENDPOINT = import.meta.env.VITE_HOME_ENDPOINT
-const ID = import.meta.env.VITE_QUERY_ID
+const HOME_ENDPOINT = import.meta.env.VITE_HOME_ENDPOINT
+const ENDPOINT = import.meta.env.VITE_ENDPOINT
 
 export default function Home() {
     const { styleDarkHome } = useTheme()
     const { fetchData } = useStore()
 
     useEffect(() => {
-        const url = `${API_URL}${ENDPOINT}?userId=${ID}`
-        console.log(url)
-        fetchData(url)
+
+        fetchData(`${API_URL}${HOME_ENDPOINT}?${ENDPOINT}`)
 
     }, [fetchData])
 

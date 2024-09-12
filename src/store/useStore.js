@@ -21,12 +21,13 @@ export const useStore = create((set, get) => ({
   fetchData: async (url) => {
     try {
       const response = await fetch(url);
-      console.log(response);
+
       if (!response.ok) {
         console.error("Error al cargar los datos");
         return;
       }
       const data = await response.json();
+      console.log(data);
       set({ getData: data });
     } catch (error) {
       console.error("Error en la solicitud de datos:", error);
