@@ -7,16 +7,16 @@ import { useEffect } from "react";
 import { useStore } from "../../store/useStore";
 const API_URL = import.meta.env.VITE_API_URL
 const ENDPOINT = import.meta.env.VITE_HOME_ENDPOINT
-// const query = import.meta.env.VITE_QUERY
+const ID = import.meta.env.VITE_QUERY_ID
 
 export default function Home() {
     const { styleDarkHome } = useTheme()
     const { fetchData } = useStore()
 
     useEffect(() => {
-
-        fetchData(`${API_URL}${ENDPOINT}`)
-
+        const url = `${API_URL}${ENDPOINT}?userId=${ID}`
+        console.log(url)
+        fetchData(url)
 
     }, [fetchData])
 

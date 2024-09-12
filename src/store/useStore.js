@@ -2,10 +2,10 @@ import { create } from "zustand";
 
 const initialState = [
   {
-    totalAFavor: "",
-    totalAFavorPago: "",
-    totalDeuda: "",
-    totalDeudaPago: "",
+    totalAFavor: 0,
+    totalAFavorPago: 0,
+    totalDeuda: 0,
+    totalDeudaPago: 0,
     vencimientosAFavor: [],
     vencimientosDeuda: [],
   },
@@ -21,7 +21,7 @@ export const useStore = create((set, get) => ({
   fetchData: async (url) => {
     try {
       const response = await fetch(url);
-
+      console.log(response);
       if (!response.ok) {
         console.error("Error al cargar los datos");
         return;
@@ -60,12 +60,23 @@ export const useStore = create((set, get) => ({
       console.error("Error en la solicitud de datos:", error);
     }
   },
+
   getDetalles: (id) => {
     const { detalles } = get();
     return detalles.find((prestamo) => prestamo.id === id);
   },
 
   EditDetalles: (id, data) => {
-    console.log(id, data);
+    const { detalles } = get();
+    const primerElemento = detalles.find((elemet) => elemet.id === id);
+
+    const nuevoObjeto = [];
+
+    for (const key in primerElemento) {
+      if (Object.prototype.hasOwnProperty.call(data, key)) {
+        nuevoObjeto[key] = data[key];
+      }
+    }
+    console.log(nuevoObjeto);
   },
 }));
