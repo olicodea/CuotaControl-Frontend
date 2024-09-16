@@ -11,6 +11,11 @@
       {
         "fecha": "2024-01-01",
         "monto": 1000,
+        "estado": "pendiente"
+      },
+      {
+        "fecha": "2024-02-01",
+        "monto": 1000,
         "estado": "pagado"
       }
     ],
@@ -34,6 +39,11 @@
         "fecha": "2024-01-15",
         "monto": 2500,
         "estado": "pagado"
+      },
+      {
+        "fecha": "2024-02-15",
+        "monto": 2500,
+        "estado": "pendiente"
       }
     ],
     "descripcion": "Préstamo personal para mejoras en su vivienda",
@@ -54,6 +64,11 @@
     "vencimientos": [
       {
         "fecha": "2024-01-10",
+        "monto": 4000,
+        "estado": "pagado"
+      },
+      {
+        "fecha": "2024-02-10",
         "monto": 4000,
         "estado": "pagado"
       }
@@ -77,7 +92,12 @@
       {
         "fecha": "2024-01-20",
         "monto": 1200,
-        "estado": "pagado"
+        "estado": "pendiente"
+      },
+      {
+        "fecha": "2024-02-20",
+        "monto": 1200,
+        "estado": "pendiente"
       }
     ],
     "descripcion": "Préstamo educativo para estudios de posgrado",

@@ -16,6 +16,5 @@ export default function HeaderPrestamo({ handleChangeFilter, filter, selectTheme
 
 HeaderPrestamo.propTypes = {
     handleChangeFilter: PropTypes.func.isRequired,
-    filter: PropTypes.string.isRequired,
     selectTheme: PropTypes.string.isRequired
 };

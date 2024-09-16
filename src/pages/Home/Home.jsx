@@ -14,8 +14,10 @@ export default function Home() {
     const { fetchData } = useStore()
 
     useEffect(() => {
+        const a = `${API_URL}${HOME_ENDPOINT}?userId=${ENDPOINT}`
+        console.log(a)
 
-        fetchData(`${API_URL}${HOME_ENDPOINT}?${ENDPOINT}`)
+        fetchData(`${API_URL}${HOME_ENDPOINT}?userId=${ENDPOINT}`)
 
     }, [fetchData])
 

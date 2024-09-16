@@ -29,6 +29,7 @@ export default function Prestamos() {
             setStateFilter(getPrestamos);
         } else {
             const getPrestamosFilter = getPrestamos.filter(item => item.estadoPrestamo === filter)
+
             setStateFilter(getPrestamosFilter);
         }
 
@@ -42,14 +43,14 @@ export default function Prestamos() {
     }, [])
 
     return (
-        <div className={`${styleDarkHome} h-auto`}>
+        <div className={`${styleDarkHome} h-12/12`}>
             <HeaderPrestamo handleChangeFilter={handleChangeFilter} filte={filter} selectTheme={selectTheme} />
             <main className="w-screen h-auto" >
                 <h4 className="pl-4">{filter === 'dado' ? "Prestados" : filter === 'pedido' ? "Pedidos" : "Todos"}</h4>
                 <ContainerCard stateFilter={stateFilter} />
             </main>
             <footer className="p-5 flex items-center">
-                {filter === 'all' ? <Link to='/' className="flex  items-center cursor-pointer"><IoIosArrowBack /> Vovler Atras</Link> : ''}
+                {filter === 'all' ? <Link to='/' className="flex  items-center cursor-pointer"><IoIosArrowBack /> Atras</Link> : ''}
             </footer>
         </div >
     );

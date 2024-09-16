@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
 import useTheme from "../../components/Hooks/useTheme";
 import Button from "../../components/PagesComponents/Inicio/Button/Button";
 
-const CardCuotas = ({ cuota, vencimientos }) => {
+const CardCuotas = ({ cuota, vencimiento, estado, monto }) => {
+    console.log(vencimiento)
     const { darkCard } = useTheme();
 
     return (
@@ -10,11 +10,16 @@ const CardCuotas = ({ cuota, vencimientos }) => {
             <div className="flex flex-col justify-center items-start p-2">
                 <h3>{cuota}</h3>
                 <ul>
-                    {vencimientos.map((vencimiento) => (
-                        <li key={vencimiento.fecha}>
-                            Fecha: {vencimiento.fecha}, Monto: {vencimiento.monto}, Estado: {vencimiento.estado}
-                        </li>
-                    ))}
+                    <li>
+                        Fecha: {vencimiento}
+                    </li>
+                    <li>
+                        Estado: {estado}
+                    </li>
+                    <li>
+                        Monto: {monto}
+                    </li>
+
                 </ul>
             </div>
             <Button name='Marcar pagado' style={'w-32 m-auto'} route='' />
@@ -22,15 +27,5 @@ const CardCuotas = ({ cuota, vencimientos }) => {
     );
 };
 
-CardCuotas.propTypes = {
-    cuota: PropTypes.string.isRequired,
-    vencimientos: PropTypes.arrayOf(
-        PropTypes.shape({
-            fecha: PropTypes.string.isRequired,
-            monto: PropTypes.number.isRequired,
-            estado: PropTypes.string.isRequired
-        })
-    ).isRequired
-};
 
 export default CardCuotas;

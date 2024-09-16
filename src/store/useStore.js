@@ -11,29 +11,26 @@ const initialState = [
   },
 ];
 
-// Creación de la store usando zustand
 export const useStore = create((set, get) => ({
   getData: initialState,
   getPrestamos: [],
   detalles: [],
 
-  // Función para obtener datos de la API
   fetchData: async (url) => {
     try {
       const response = await fetch(url);
-
       if (!response.ok) {
         console.error("Error al cargar los datos");
         return;
       }
       const data = await response.json();
-      console.log(data);
+
       set({ getData: data });
     } catch (error) {
       console.error("Error en la solicitud de datos:", error);
     }
   },
-  // Obtener los datos de la lista de préstamos
+
   fetchPrestamos: async (url) => {
     try {
       const response = await fetch(url);
@@ -47,7 +44,7 @@ export const useStore = create((set, get) => ({
       console.error("Error en la solicitud de datos:", error);
     }
   },
-  // Obtener los datos de los detalles
+
   fetchDetalles: async (url) => {
     try {
       const response = await fetch(url);
@@ -68,16 +65,7 @@ export const useStore = create((set, get) => ({
   },
 
   EditDetalles: (id, data) => {
-    const { detalles } = get();
-    const primerElemento = detalles.find((elemet) => elemet.id === id);
-
-    const nuevoObjeto = [];
-
-    for (const key in primerElemento) {
-      if (Object.prototype.hasOwnProperty.call(data, key)) {
-        nuevoObjeto[key] = data[key];
-      }
-    }
-    console.log(nuevoObjeto);
+    console.log(id, data); // Implementar lógica PATCH para el backend aquí
+    // tengo que hacer algo como fetch('/api/detalles', { method: 'PATCH', body: JSON.stringify(data) })
   },
 }));

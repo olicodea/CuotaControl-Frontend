@@ -7,19 +7,18 @@ export default function Range({ nameInput, TotalPago, Totaldeuda, porcentaje, co
     const { theme } = useContext(ThemeContextCustom);
 
     return (
-        <label htmlFor="range" className={`flex flex-col justify-center `}>
-            <span className={` ${theme === 'dark' ? 'text-slate-900' : 'text-slate-700'} absolute text-sm font-semibold  select-none z-10 pl-5`}>
+        <label htmlFor="range" className={`flex flex-col justify-center`}>
+            <span className={` ${theme === 'dark' ? 'text-slate-900' : 'text-slate-700'} absolute text-sm font-semibold select-none z-10 pl-5`}>
                 %{porcentaje}
             </span>
             <input
+                id="range"
                 type="range"
                 name={nameInput}
                 defaultValue={TotalPago}
                 min={0}
                 max={Totaldeuda}
                 className='range-input'
-
-
                 style={{
                     background: porcentaje === 100
                         ? `#${color1}`
@@ -29,12 +28,8 @@ export default function Range({ nameInput, TotalPago, Totaldeuda, porcentaje, co
     );
 }
 
-
 Range.propTypes = {
     nameInput: PropTypes.string.isRequired,
-    TotalPago: PropTypes.number.isRequired,
-    Totaldeuda: PropTypes.number.isRequired,
-    porcentaje: PropTypes.number.isRequired,
     color1: PropTypes.string.isRequired,
     color2: PropTypes.string.isRequired,
 };
