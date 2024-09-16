@@ -51,7 +51,11 @@ export default function VerDetalles() {
 
                     <button onClick={handleClickCheck}><IoFilterSharp className={`cursor-pointer ${openCheck ? 'rotate-90' : ''}`} /></button>
                 </div>
-                {openCheck && <CheckBox />}
+                <div className={` rounded-md transition-max-heightD duration-700 ease-in-out overflow-hidden ${openCheck ? "max-h-[1000px]" : "max-h-0"
+                    }`}>
+                    {openCheck && <CheckBox openCheck={openCheck} />}
+                </div>
+
 
 
                 <div className="snap-proximity snap-y overflow-y-auto h-96 p-2 border-t m-auto w-11/12">

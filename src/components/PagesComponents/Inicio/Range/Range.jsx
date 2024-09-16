@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import "../Range/range.css";
 import { ThemeContextCustom } from "../../../Context/ThemeContext";
 import PropTypes from 'prop-types';
+import "../Range/range.css";
 
 export default function Range({ nameInput, TotalPago, Totaldeuda, porcentaje, color1, color2 }) {
     const { theme } = useContext(ThemeContextCustom);
@@ -18,11 +18,14 @@ export default function Range({ nameInput, TotalPago, Totaldeuda, porcentaje, co
                 defaultValue={TotalPago}
                 min={0}
                 max={Totaldeuda}
-                className='range-input'
+                className='range-input '
+
+
                 style={{
                     background: porcentaje === 100
                         ? `#${color1}`
-                        : `linear-gradient(to right, #${color1} ${porcentaje - 4}%, #${color2} ${porcentaje}%)`
+                        : `linear-gradient(to right, #${color1} ${porcentaje - 4}%, #${color2} ${porcentaje}%)`,
+
                 }} />
         </label>
     );

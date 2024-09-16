@@ -45,20 +45,20 @@ export default function DetallesCard({ obj, id }) {
             <div>
                 <form onSubmit={handleSubmit(handleChange)} className="flex flex-col p-2 gap-2">
                     <label htmlFor="nombreContacto">
-                        Contacto:
-                        <input type="text" {...register("nombreContacto")} className="bg-transparent" />
+                        Contacto:{' '}
+                        <input type="text" {...register("nombreContacto")} className="bg-transparent border-none" />
                     </label>
                     <label htmlFor="estadoPrestamo">
                         Tipo:
-                        <input type="text" {...register("estadoPrestamo")} className="bg-transparent" />
+                        <input type="text" {...register("estadoPrestamo")} className="bg-transparent border-none" />
                     </label>
                     <label htmlFor="montoTotal">
                         Total prestado: $
-                        <input type="number" {...register("montoTotal")} className="bg-transparent" />
+                        <input type="number" {...register("montoTotal")} className="bg-transparent border-none" />
                     </label>
                     <label htmlFor="montoPagado">
                         Total cobrado: $
-                        <input type="number" {...register("montoPagado")} className="bg-transparent" />
+                        <input type="number" {...register("montoPagado")} className="bg-transparent border-none" />
                     </label>
                     <label htmlFor="restante">
                         Restante: ${restante}
