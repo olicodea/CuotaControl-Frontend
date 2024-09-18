@@ -1,18 +1,7 @@
 import { create } from "zustand";
 
-const initialState = [
-  {
-    totalAFavor: 0,
-    totalAFavorPago: 0,
-    totalDeuda: 0,
-    totalDeudaPago: 0,
-    vencimientosAFavor: [],
-    vencimientosDeuda: [],
-  },
-];
-
 export const useStore = create((set, get) => ({
-  getData: initialState,
+  getData: [],
   getPrestamos: [],
   detalles: [],
 
@@ -24,7 +13,6 @@ export const useStore = create((set, get) => ({
         return;
       }
       const data = await response.json();
-
       set({ getData: data });
     } catch (error) {
       console.error("Error en la solicitud de datos:", error);
@@ -35,13 +23,13 @@ export const useStore = create((set, get) => ({
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        console.error("Error al cargar los datos");
+        console.error("Error al cargar los préstamos");
         return;
       }
       const data = await response.json();
       set({ getPrestamos: data });
     } catch (error) {
-      console.error("Error en la solicitud de datos:", error);
+      console.error("Error en la solicitud de préstamos:", error);
     }
   },
 
@@ -49,23 +37,33 @@ export const useStore = create((set, get) => ({
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        console.error("Error al cargar los datos");
+        console.error("Error al cargar los detalles");
         return;
       }
       const data = await response.json();
       set({ detalles: data });
     } catch (error) {
-      console.error("Error en la solicitud de datos:", error);
+      console.error("Error en la solicitud de detalles:", error);
     }
   },
 
   getDetalles: (id) => {
     const { detalles } = get();
-    return detalles.find((prestamo) => prestamo.id === id);
+    return detalles.find((detalle) => detalle.id === id);
   },
 
-  EditDetalles: (id, data) => {
-    console.log(id, data); // Implementar lógica PATCH para el backend aquí
-    // tengo que hacer algo como fetch('/api/detalles', { method: 'PATCH', body: JSON.stringify(data) })
+  EditDetalles: async (id, data) => {
+    const { detalles } = get();
+    const detallesEdit = detalles.map((elemt) => {
+      if (elemt.id === id) {
+        return { ...elemt, ...data };
+      } else {
+        return elemt;
+      }
+    });
+
+    set({ detalles: detallesEdit });
+
+    // Implementar la solicitud PATCH para el backend
   },
 }));

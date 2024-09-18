@@ -2,7 +2,7 @@ import useTheme from "../../components/Hooks/useTheme";
 import Button from "../../components/PagesComponents/Inicio/Button/Button";
 
 const CardCuotas = ({ cuota, vencimiento, estado, monto }) => {
-    console.log(vencimiento)
+
     const { darkCard } = useTheme();
 
     return (

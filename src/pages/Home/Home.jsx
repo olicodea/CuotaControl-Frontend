@@ -5,19 +5,20 @@ import VencimientosARecibir from "../../components/PagesComponents/Inicio/Vencim
 import useTheme from "../../components/Hooks/useTheme";
 import { useEffect } from "react";
 import { useStore } from "../../store/useStore";
-const API_URL = import.meta.env.VITE_API_URL
-const HOME_ENDPOINT = import.meta.env.VITE_HOME_ENDPOINT
-const ENDPOINT = import.meta.env.VITE_ENDPOINT
+
+const apiUrl = import.meta.env.VITE_API_BASE_URL;
+const homeEndpoint = import.meta.env.VITE_HOME_ENDPOINT;
+const userId = import.meta.env.VITE_USER_ID;
+
 
 export default function Home() {
     const { styleDarkHome } = useTheme()
-    const { fetchData } = useStore()
+    const fetchData = useStore((state) => state.fetchData)
 
     useEffect(() => {
-        const a = `${API_URL}${HOME_ENDPOINT}?userId=${ENDPOINT}`
-        console.log(a)
+        const url = `${apiUrl}${homeEndpoint}?userId=${userId}`;
 
-        fetchData(`${API_URL}${HOME_ENDPOINT}?userId=${ENDPOINT}`)
+        fetchData(url)
 
     }, [fetchData])
 

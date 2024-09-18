@@ -29,6 +29,7 @@ export default function DetallesCard({ obj, id }) {
 
     const handleChange = (data => {
         EditDetalles(id, data);
+        setIsEditing(false)
     })
 
     return (
@@ -90,13 +91,3 @@ export default function DetallesCard({ obj, id }) {
     );
 }
 
-DetallesCard.propTypes = {
-    obj: PropTypes.shape({
-        descripcion: PropTypes.string,
-        montoPagado: PropTypes.number,
-        montoTotal: PropTypes.number,
-        nombreContacto: PropTypes.string,
-        nroprestamo: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        porcentajeCumplido: PropTypes.number,
-    }).isRequired,
-};

@@ -5,8 +5,9 @@ import HeaderPrestamo from "../../components/PagesComponents/Prestamos/HeaderPre
 import ContainerCard from "../../components/PagesComponents/Prestamos/Card/ContainerCard";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
-
-const API_URLPRESTAMOS = "../../../public/services/data.json";
+// const apiUrl = import.meta.env.VITE_API_BASE_URL;
+// const prestamosEndpoint = import.meta.env.VITE_PRESTAMOS_ENDPOINT;
+// const userId = import.meta.env.VITE_USER_ID;
 
 export default function Prestamos() {
 
@@ -21,7 +22,8 @@ export default function Prestamos() {
 
 
     useEffect(() => {
-        fetchPrestamos(API_URLPRESTAMOS);
+        // const url = `${apiUrl}${prestamosEndpoint}?userId=${userId}`
+        fetchPrestamos('../../../public/services/data.json');
     }, [fetchPrestamos]);
 
     useEffect(() => {
