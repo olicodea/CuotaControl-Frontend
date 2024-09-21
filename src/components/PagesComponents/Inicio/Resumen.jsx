@@ -10,7 +10,6 @@ export default function Resumen() {
     const data = useStore(state => state.getData);
     const { totalAFavor, totalAFavorPago, totalDeuda, totalDeudaPago } = data || {};
 
-    console.log(totalDeuda)
 
     const porcentajeTotalAFavor = calcularPorcentaje(totalAFavorPago, totalAFavor);
     const porcentajeTotalDeuda = calcularPorcentaje(totalDeudaPago, totalDeuda);

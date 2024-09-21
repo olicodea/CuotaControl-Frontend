@@ -1,7 +1,9 @@
 import useTheme from "../../components/Hooks/useTheme";
 import Button from "../../components/PagesComponents/Inicio/Button/Button";
+import { GrRevert } from "react-icons/gr";
 
 const CardCuotas = ({ cuota, vencimiento, estado, monto }) => {
+    console.log(estado)
 
     const { darkCard } = useTheme();
 
@@ -22,7 +24,18 @@ const CardCuotas = ({ cuota, vencimiento, estado, monto }) => {
 
                 </ul>
             </div>
-            <Button name='Marcar pagado' style={'w-32 m-auto'} route='' />
+            <Button
+                name={estado === 'pagada' ? (
+                    <div className="flex items-center justify-center gap-1">
+
+
+                        Revertir
+                        <GrRevert className="" size={15} />
+                    </div>
+                ) : 'Marcar pagado'}
+                style='w-32 m-auto'
+                route=''
+            />
         </article>
     );
 };

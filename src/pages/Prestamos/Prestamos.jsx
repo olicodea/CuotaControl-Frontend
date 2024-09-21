@@ -4,10 +4,12 @@ import { useStore } from "../../store/useStore";
 import HeaderPrestamo from "../../components/PagesComponents/Prestamos/HeaderPrestamo";
 import ContainerCard from "../../components/PagesComponents/Prestamos/Card/ContainerCard";
 import { Link } from "react-router-dom";
+
 import { IoIosArrowBack } from "react-icons/io";
-// const apiUrl = import.meta.env.VITE_API_BASE_URL;
-// const prestamosEndpoint = import.meta.env.VITE_PRESTAMOS_ENDPOINT;
-// const userId = import.meta.env.VITE_USER_ID;
+// const prestamosJson = "../../../public/services/Detalles.json"
+const apiUrl = import.meta.env.VITE_API_BASE_URL;
+const prestamosEndpoint = import.meta.env.VITE_PRESTAMOS_ENDPOINT;
+const userId = import.meta.env.VITE_USER_ID;
 
 export default function Prestamos() {
 
@@ -22,15 +24,15 @@ export default function Prestamos() {
 
 
     useEffect(() => {
-        // const url = `${apiUrl}${prestamosEndpoint}?userId=${userId}`
-        fetchPrestamos('../../../public/services/data.json');
+        const url = `${apiUrl}/api${prestamosEndpoint}?userId=${userId}`
+        fetchPrestamos(url);
     }, [fetchPrestamos]);
 
     useEffect(() => {
         if (filter === 'all') {
             setStateFilter(getPrestamos);
         } else {
-            const getPrestamosFilter = getPrestamos.filter(item => item.estadoPrestamo === filter)
+            const getPrestamosFilter = getPrestamos.filter(item => item.tipo === filter)
 
             setStateFilter(getPrestamosFilter);
         }

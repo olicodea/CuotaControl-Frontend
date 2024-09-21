@@ -4,6 +4,7 @@ import Button from '../../Inicio/Button/Button'
 import Range from '../../Inicio/Range/Range'
 
 export default function CardPestamos({ nombreContacto, nroPrestamo, porcentajeCumplido, estadoPrestamo, id }) {
+
     const { darkCard } = useTheme()
 
 

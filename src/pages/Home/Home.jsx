@@ -16,7 +16,7 @@ export default function Home() {
     const fetchData = useStore((state) => state.fetchData)
 
     useEffect(() => {
-        const url = `${apiUrl}${homeEndpoint}?userId=${userId}`;
+        const url = `${apiUrl}/api${homeEndpoint}?userId=${userId}`;
 
         fetchData(url)
 

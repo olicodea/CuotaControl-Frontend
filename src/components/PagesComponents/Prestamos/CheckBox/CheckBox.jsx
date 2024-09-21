@@ -1,6 +1,6 @@
 import { Checkbox, Label } from "flowbite-react";
 
-export default function CheckBox({ pagado, pendiente, setValueCheck }) {
+export default function CheckBox({ pagada, pendiente, setValueCheck }) {
     const handleChange = (e) => {
         const { id, checked } = e.target;
         setValueCheck((prev) => ({ ...prev, [id]: checked }))
@@ -13,7 +13,7 @@ export default function CheckBox({ pagado, pendiente, setValueCheck }) {
                 <Label htmlFor="accept" className="flex">
                     Buscar por estado &nbsp;
                     <p className="text-cyan-600  dark:text-cyan-500">
-                        Pendiente / Pagado
+                        Pendiente / Pagada
                     </p>
                 </Label>
             </div>
@@ -22,8 +22,8 @@ export default function CheckBox({ pagado, pendiente, setValueCheck }) {
                 <Label htmlFor="pendiente">pendiente</Label>
             </div>
             <div className="flex items-center gap-2 pl-2">
-                <Checkbox id="pagado" onChange={handleChange} checked={pagado} />
-                <Label htmlFor="age">pagado</Label>
+                <Checkbox id="pagada" onChange={handleChange} checked={pagada} />
+                <Label htmlFor="pagada">pagada</Label>
             </div>
 
 

@@ -7,8 +7,8 @@ export default function HeaderPrestamo({ handleChangeFilter, filter, selectTheme
             <select id="Options" onChange={handleChangeFilter} value={filter} className={selectTheme}
             >
                 <option value="all">Todos</option>
-                <option value="dado">Prestado</option>
-                <option value="pedido">Pedido</option>
+                <option value="prestado">Prestado</option>
+                <option value="recibido">Recibido</option>
             </select>
         </header>
     )
