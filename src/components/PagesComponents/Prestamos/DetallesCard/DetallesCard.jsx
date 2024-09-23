@@ -46,11 +46,11 @@ export default function DetallesCard({ obj, id, handleDelete }) {
             <div>
                 <form onSubmit={handleSubmit(handleChange)} className="flex flex-col p-2 gap-2">
                     <label htmlFor="nombreContacto">
-                        Contacto:
+                        Contacto: {' '}
                         <input type="text" {...register("nombreContacto")} disabled={!isEditing} className="bg-transparent border-none" />
                     </label>
                     <label htmlFor="tipo">
-                        Tipo:
+                        Tipo: {' '}
                         <input type="text" {...register("tipo")} disabled={!isEditing} className="bg-transparent border-none" />
                     </label>
                     <label htmlFor="monto">
