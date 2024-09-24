@@ -25,6 +25,7 @@ export default function Prestamos() {
 
     useEffect(() => {
         const url = `${apiUrl}/api${prestamosEndpoint}?userId=${userId}`
+
         fetchPrestamos(url);
     }, [fetchPrestamos]);
 

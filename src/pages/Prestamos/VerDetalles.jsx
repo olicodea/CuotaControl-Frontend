@@ -8,15 +8,13 @@ import useTheme from '../../components/Hooks/useTheme';
 import { IoFilterSharp } from "react-icons/io5";
 import CheckBox from '../../components/PagesComponents/Prestamos/CheckBox/CheckBox';
 import useFiltrarCuotas from '../../components/Hooks/useFiltrarCuotas';
-import Swal from 'sweetalert2';
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
 const prestamosDetailEnpoint = import.meta.env.VITE_PRESTAMOS_DETAIL_ENDPOINT;
 
-
-
 export default function VerDetalles() {
     const { id } = useParams();
+
 
     const { styleDarkHome } = useTheme();
     const [openCheck, setOpenCheck] = useState(false);
@@ -25,15 +23,15 @@ export default function VerDetalles() {
         pagada: false
     });
 
-    const { fetchDetalles, detalles, deleteItem, ItemPagado } = useStore(state => ({
+    const { fetchDetalles, detalles, ItemPagado } = useStore(state => ({
         fetchDetalles: state.fetchDetalles,
         detalles: state.detalles,
-        deleteItem: state.deleteItem,
         ItemPagado: state.ItemPagado
 
     }));
 
     useEffect(() => {
+
         const url = `${apiUrl}/api${prestamosDetailEnpoint}?loanId=${id}`
 
         fetchDetalles(url);
@@ -46,12 +44,8 @@ export default function VerDetalles() {
         setOpenCheck(prev => !prev);
     };
 
-    const handleClickDelete = () => {
-        deleteItem(id);
-    }
 
     const handleClickPagado = (cuotaId) => {
-
         ItemPagado(cuotaId)
     };
 
@@ -59,7 +53,7 @@ export default function VerDetalles() {
         <div className={`flex flex-col gap-5 ${styleDarkHome} h-full`}>
             <section className="flex flex-col justify-center items-start">
                 <h1 className="pl-4 p-2">Detalles</h1>
-                <DetallesCard obj={detalles} id={Number(id)} handleDelete={handleClickDelete} />
+                <DetallesCard obj={detalles} />
             </section>
 
             <section className="flex flex-col justify-center items-start">

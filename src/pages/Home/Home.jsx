@@ -18,6 +18,7 @@ export default function Home() {
     useEffect(() => {
         const url = `${apiUrl}/api${homeEndpoint}?userId=${userId}`;
 
+
         fetchData(url)
 
     }, [fetchData])

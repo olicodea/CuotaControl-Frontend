@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import { create } from "zustand";
+import { Delete } from "./CRUD/Delete";
 
 export const useStore = create((set, get) => ({
   getData: [],
@@ -27,8 +28,9 @@ export const useStore = create((set, get) => ({
         console.error("Error al cargar los préstamos");
         return;
       }
-      const data = await response.json();
-      set({ getPrestamos: data });
+      const dataPrestamos = await response.json();
+
+      set({ getPrestamos: dataPrestamos });
     } catch (error) {
       console.error("Error en la solicitud de préstamos:", error);
     }
@@ -42,10 +44,9 @@ export const useStore = create((set, get) => ({
         console.error("Error al cargar los detalles");
         return;
       }
-      const data = await response.json();
-      console.log(data);
+      const dataDetalles = await response.json();
 
-      set({ detalles: data });
+      set({ detalles: dataDetalles });
     } catch (error) {
       console.error("Error en la solicitud de detalles:", error);
     }
@@ -64,10 +65,8 @@ export const useStore = create((set, get) => ({
 
     // Implementar la solicitud PATCH para el backend
   },
-  deleteItem: (id) => {
-    const { detalles } = get();
-
-    Swal.fire({
+  deleteItem: async (id, url) => {
+    const result = await Swal.fire({
       title: "¿Estás seguro?",
       text: "¡No podrás revertir esto!",
       icon: "warning",
@@ -76,20 +75,25 @@ export const useStore = create((set, get) => ({
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, eliminarlo",
       cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const itemDelete = Array.isArray(detalles)
-          ? detalles.filter((item) => item.id !== id)
-          : [];
-        set({ detalles: itemDelete });
-        //mandamos la informacion al backend
-        Swal.fire({
-          title: "¡Eliminado!",
-          text: "Tu archivo ha sido eliminado.",
-          icon: "success",
-        });
-      }
     });
+    if (result.isConfirmed) {
+      // Hacemos la petición DELETE al backend
+      const response = await Delete(url);
+
+      if (response) {
+        set((state) => ({
+          detalles: state.detalles.filter((item) => item.id !== id),
+        }));
+        return true;
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "No se pudo eliminar el producto. Inténtalo más tarde.",
+          icon: "error",
+        });
+        return false;
+      }
+    }
   },
 
   ItemPagado: (cuotaId) => {

@@ -6,14 +6,20 @@ import { CiEdit } from "react-icons/ci";
 import useTheme from '../../../Hooks/useTheme';
 import Range from "../../Inicio/Range/Range";
 import { useStore } from '../../../../store/useStore';
+import { useNavigate } from 'react-router-dom';
 
-export default function DetallesCard({ obj, id, handleDelete }) {
-    const { nombreContacto, monto, totalCobrado, porcentajeCumplido, nroPrestamo, tipo } = obj;
+const apiUrl = import.meta.env.VITE_API_BASE_URL
+const prestamoDelete = import.meta.env.VITE_PRESTAMOS_ENDPOINT
+
+export default function DetallesCard({ obj }) {
+    const { nombreContacto, monto, totalCobrado, porcentajeCumplido, nroPrestamo, tipo, id } = obj;
+
     const [isEditing, setIsEditing] = useState(false);
     const [showNota, setShowNota] = useState(false);
     const { darkCard } = useTheme();
     const { handleSubmit, register, reset, setFocus } = useForm();
-    const EditDetalles = useStore(state => state.EditDetalles);
+    const { EditDetalles, deleteItem } = useStore(state => ({ EditDetalles: state.EditDetalles, deleteItem: state.deleteItem }));
+    const navigate = useNavigate()
 
     const restante = monto - totalCobrado;
 
@@ -32,6 +38,17 @@ export default function DetallesCard({ obj, id, handleDelete }) {
         setIsEditing(false);
     };
 
+    const handleClickDelete = async () => {
+        const urlDelete = `${apiUrl}/api${prestamoDelete}?loanId=${id}`;
+
+        const isDelete = await deleteItem(id, urlDelete)
+        console.log(isDelete)
+
+
+
+    };
+
+
     return (
         <article className={`flex flex-col p-2 w-11/12 rounded-md cardStyle m-auto ${darkCard} mt-3`}>
             <div className="flex justify-between">
@@ -40,7 +57,7 @@ export default function DetallesCard({ obj, id, handleDelete }) {
                     <button onClick={() => setIsEditing(prev => !prev)}>
                         <CiEdit className="size-6 cursor-pointer" />
                     </button>
-                    <RiDeleteBinLine className="size-6 cursor-pointer" onClick={handleDelete} />
+                    <RiDeleteBinLine className="size-6 cursor-pointer" onClick={handleClickDelete} />
                 </div>
             </div>
             <div>
