@@ -43,6 +43,7 @@ export const useStore = create((set, get) => ({
         return;
       }
       const data = await response.json();
+      console.log(data);
 
       set({ detalles: data });
     } catch (error) {
