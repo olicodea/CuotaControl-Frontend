@@ -6,8 +6,7 @@ import { CiEdit } from "react-icons/ci";
 import useTheme from '../../../Hooks/useTheme';
 import Range from "../../Inicio/Range/Range";
 import { useStore } from '../../../../store/useStore';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom"
 const apiUrl = import.meta.env.VITE_API_BASE_URL
 const prestamoDelete = import.meta.env.VITE_PRESTAMOS_ENDPOINT
 
@@ -34,18 +33,18 @@ export default function DetallesCard({ obj }) {
     }, [nombreContacto, tipo, monto, totalCobrado, reset]);
 
     const handleChange = (data) => {
-        EditDetalles(id, data);
+        const url = `${apiUrl}/api${prestamoDelete}`
+
+        EditDetalles(url, id, data);
         setIsEditing(false);
     };
 
     const handleClickDelete = async () => {
         const urlDelete = `${apiUrl}/api${prestamoDelete}?loanId=${id}`;
-
         const isDelete = await deleteItem(id, urlDelete)
-        console.log(isDelete)
-
-
-
+        if (isDelete) {
+            navigate('/prestamos')
+        }
     };
 
 

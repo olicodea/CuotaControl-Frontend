@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import { create } from "zustand";
 import { Delete } from "./CRUD/Delete";
+import { Editar } from "./CRUD/Editar";
 
 export const useStore = create((set, get) => ({
   getData: [],
@@ -29,6 +30,7 @@ export const useStore = create((set, get) => ({
         return;
       }
       const dataPrestamos = await response.json();
+      console.log(dataPrestamos);
 
       set({ getPrestamos: dataPrestamos });
     } catch (error) {
@@ -52,20 +54,37 @@ export const useStore = create((set, get) => ({
     }
   },
 
-  EditDetalles: async (id, data) => {
+  EditDetalles: async (url, id, data) => {
     const { detalles } = get();
-    const detallesEdit = detalles.map((elemt) => {
-      if (elemt.id === id) {
-        return { ...elemt, ...data };
-      } else {
-        return elemt;
-      }
-    });
-    set({ detalles: detallesEdit });
 
-    // Implementar la solicitud PATCH para el backend
+    const updateEditData = {
+      id: id,
+      tipo: data.tipo,
+      notas: data.descripcion || "",
+    };
+
+    const response = await Editar(url, updateEditData);
+    if (!response) return;
+
+    const detallesIsArray = Array.from(detalles);
+    if (Array.isArray(detallesIsArray)) {
+      const itemEditado = detallesIsArray.map((item) => {
+        if (item.id === id) {
+          // si es igual al id retorno el item que con las prop remplazadas
+          return {
+            ...item,
+            tipo: updateEditData.tipo,
+            notas: updateEditData.notas,
+          };
+        }
+        return item;
+      });
+
+      set({ detalles: itemEditado });
+    }
   },
   deleteItem: async (id, url) => {
+    const { detalles } = get();
     const result = await Swal.fire({
       title: "¿Estás seguro?",
       text: "¡No podrás revertir esto!",
@@ -76,15 +95,20 @@ export const useStore = create((set, get) => ({
       confirmButtonText: "Sí, eliminarlo",
       cancelButtonText: "Cancelar",
     });
+
     if (result.isConfirmed) {
-      // Hacemos la petición DELETE al backend
       const response = await Delete(url);
 
       if (response) {
-        set((state) => ({
-          detalles: state.detalles.filter((item) => item.id !== id),
-        }));
-        return true;
+        const detallesArray = Array.from(detalles);
+
+        if (Array.isArray(detallesArray)) {
+          const deleteItem = detallesArray.filter((item) => item.id !== id);
+
+          set({ detalles: deleteItem });
+        } else {
+          console.error("detalles no es un arreglo:", detalles);
+        }
       } else {
         Swal.fire({
           title: "Error",
@@ -93,6 +117,7 @@ export const useStore = create((set, get) => ({
         });
         return false;
       }
+      return result.isConfirmed;
     }
   },
 
