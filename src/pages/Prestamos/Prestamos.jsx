@@ -6,7 +6,6 @@ import ContainerCard from "../../components/PagesComponents/Prestamos/Card/Conta
 import { Link } from "react-router-dom";
 
 import { IoIosArrowBack } from "react-icons/io";
-// const prestamosJson = "../../../public/services/Detalles.json"
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
 const prestamosEndpoint = import.meta.env.VITE_PRESTAMOS_ENDPOINT;
 const userId = import.meta.env.VITE_USER_ID;
