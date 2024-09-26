@@ -5,18 +5,21 @@ import VencimientosARecibir from "../../components/PagesComponents/Inicio/Vencim
 import useTheme from "../../components/Hooks/useTheme";
 import { useEffect } from "react";
 import { useStore } from "../../store/useStore";
-const API_URL = import.meta.env.VITE_API_URL
-const ENDPOINT = import.meta.env.VITE_HOME_ENDPOINT
+
+const apiUrl = import.meta.env.VITE_API_BASE_URL;
+const homeEndpoint = import.meta.env.VITE_HOME_ENDPOINT;
+const userId = import.meta.env.VITE_USER_ID;
 
 
 export default function Home() {
-    const { styleDarkHome, darkResumen } = useTheme()
-    const { fetchData } = useStore()
+    const { styleDarkHome } = useTheme()
+    const fetchData = useStore((state) => state.fetchData)
 
     useEffect(() => {
+        const url = `${apiUrl}/api${homeEndpoint}?userId=${userId}`;
 
-        fetchData(`${API_URL}${ENDPOINT}`)
 
+        fetchData(url)
 
     }, [fetchData])
 
@@ -28,7 +31,7 @@ export default function Home() {
                 <VencimientosAPagar />
             </section>
             <div className="flex justify-center">
-                <Button name='Nuevo préstamo' style={` ${styleDarkHome} ${darkResumen} border  border-[1px] w-50 p-2  m-auto rounded-md text-sm font-semibold mb-6`} />
+                <Button name='Nuevo préstamo' style={'mb-6'} />
             </div>
         </main>
     )

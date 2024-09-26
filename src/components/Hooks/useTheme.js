@@ -12,6 +12,6 @@ export default function useTheme() {
 
   const pDark = theme === "dark" ? "text-slate-400" : "text-slate-900";
   const darkCard = theme === "dark" ? "bg-slate-700" : " ";
-
-  return { styleDarkHome, darkResumen, pDark, darkCard };
+  const selectTheme = theme === "dark" ? "bg-slate-600" : "bg-slate-100";
+  return { styleDarkHome, darkResumen, pDark, darkCard, selectTheme };
 }

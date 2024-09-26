@@ -6,6 +6,6 @@ const calcularPorcentaje = (pagado, total) => {
     result = (pagado / total) * 100;
   }
 
-  return result === 100 ? result : result.toFixed(2);
+  return Number(result === 100 ? result : result.toFixed(2));
 };
 export default calcularPorcentaje;
