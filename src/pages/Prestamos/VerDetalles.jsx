@@ -49,10 +49,6 @@ export default function VerDetalles() {
 
         const isSucces = ItemPagado(cuotaId)
         isSucces ? alertPago() : null
-
-
-
-
     };
 
     return (

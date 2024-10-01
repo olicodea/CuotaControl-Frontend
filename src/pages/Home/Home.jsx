@@ -7,62 +7,69 @@ import { useEffect, useState } from "react";
 import { useStore } from "../../store/useStore";
 import NuevoPrestamo from "../../components/PagesComponents/Inicio/FormAddPrestamo/NuevoPrestamo";
 import { useForm } from "react-hook-form";
+import Loading from "../../components/Loading/Loading";
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
 const homeEndpoint = import.meta.env.VITE_HOME_ENDPOINT;
 const userId = import.meta.env.VITE_USER_ID;
 
-const loansEndpoint = import.meta.env.VITE_PRESTAMOS_ENDPOINT
-
+const loansEndpoint = import.meta.env.VITE_PRESTAMOS_ENDPOINT;
 
 export default function Home() {
-    const { styleDarkHome } = useTheme()
-    const { fetchData, AddPrestamo } = useStore((state) => ({
+    const { styleDarkHome } = useTheme();
+    const { fetchData, AddPrestamo, isLoading } = useStore((state) => ({
         fetchData: state.fetchData,
         AddPrestamo: state.AddPrestamo,
-
-
-    }))
-    const [openForm, setOpenForm] = useState(false)
+        isLoading: state.isLoading,
+    }));
+    const [openForm, setOpenForm] = useState(false);
     const { register, handleSubmit } = useForm();
 
     useEffect(() => {
         const url = `${apiUrl}/api${homeEndpoint}?userId=${userId}`;
-
-        fetchData(url)
-
-    }, [fetchData])
-
+        fetchData(url);
+    }, [fetchData]);
 
     const handleClickOpen = () => {
-        setOpenForm(prev => !prev)
-    }
+        setOpenForm((prev) => !prev);
+    };
 
-
-    const onSubmit = data => {
+    const onSubmit = (data) => {
         const url = `${apiUrl}/api${loansEndpoint}`;
-
         AddPrestamo(url, data, userId);
-        setOpenForm(false)
-
+        setOpenForm(false);
     };
 
 
     return (
         <main className={`${styleDarkHome} h-auto`}>
-            <Resumen />
-            <section >
-                <VencimientosARecibir />
-                <VencimientosAPagar />
-            </section>
-            <div className="flex justify-center">
+            {
+                isLoading ? <Loading /> : <>
+                    <Resumen />
 
-                <Button name='Nuevo préstamo' style={'mb-6'} handle={handleClickOpen} />
-                {
-                    openForm && <NuevoPrestamo close={handleClickOpen} register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} />
-                }
+                    <section>
+                        <VencimientosARecibir />
+                        <VencimientosAPagar />
+                    </section>
+                    <div className="flex justify-center">
 
-            </div>
+                        <>
+                            <Button name='Nuevo préstamo' style={'mb-6'} handle={handleClickOpen} />
+                            {openForm && (
+                                <NuevoPrestamo
+                                    close={handleClickOpen}
+                                    register={register}
+                                    handleSubmit={handleSubmit}
+                                    onSubmit={onSubmit}
+                                />
+                            )}
+                        </>
+
+                    </div>
+                </>
+
+            }
+
         </main>
-    )
+    );
 }

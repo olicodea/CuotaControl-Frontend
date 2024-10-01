@@ -3,14 +3,15 @@ import { create } from "zustand";
 import { Delete } from "./CRUD/Delete";
 import { Editar } from "./CRUD/Editar";
 import { AddLoans } from "./CRUD/AddLoans";
-import useAlert from "../components/Hooks/useAlert";
 
 export const useStore = create((set, get) => ({
   getData: [],
   getPrestamos: [],
   detalles: [],
+  isLoading: false,
 
   fetchData: async (url) => {
+    set({ isLoading: true });
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -21,10 +22,13 @@ export const useStore = create((set, get) => ({
       set({ getData: data });
     } catch (error) {
       console.error("Error en la solicitud de datos:", error);
+    } finally {
+      set({ isLoading: false });
     }
   },
 
   fetchPrestamos: async (url) => {
+    set({ isLoading: true });
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -33,46 +37,45 @@ export const useStore = create((set, get) => ({
       }
       const dataPrestamos = await response.json();
       console.log(dataPrestamos);
-
       set({ getPrestamos: dataPrestamos });
     } catch (error) {
       console.error("Error en la solicitud de préstamos:", error);
+    } finally {
+      set({ isLoading: false });
     }
   },
 
   fetchDetalles: async (url) => {
     const { detalles } = get();
     console.log(detalles);
+    set({ isLoading: true });
     try {
       const response = await fetch(url);
-
       if (!response.ok) {
         console.error("Error al cargar los detalles");
         return;
       }
       const dataDetalles = await response.json();
-
       set({ detalles: dataDetalles });
     } catch (error) {
       console.error("Error en la solicitud de detalles:", error);
+    } finally {
+      set({ isLoading: false });
     }
   },
+
   AddPrestamo: async (url, data, id) => {
-    const updateLoans = {
-      tipoPrestamo: data.tipoPrestamo,
-      monto: Number(data.monto),
-      fechaInicio: data.fechaInicio,
-      notas: data.notas,
-      contactoId: "66e32f2648ce6527d50c555b",
-      usuarioId: id,
-      cantidadCuotas: Number(data.cantidadCuotas),
-    };
-    const response = await AddLoans(url, updateLoans);
+    set({ isLoading: true });
+
+    const response = await AddLoans(url, data, id);
     if (!response) return;
 
     console.log(response);
+    set({ isLoading: false });
   },
+
   EditDetalles: async (url, id, data) => {
+    set({ isLoading: true });
     const updateEditData = {
       id: id,
       tipo: data.tipo,
@@ -82,26 +85,24 @@ export const useStore = create((set, get) => ({
     const response = await Editar(url, updateEditData);
     if (!response) return;
 
-    // Actualiza solo los campos específicos
     set((detalles) => ({
       ...detalles,
       tipo: updateEditData.tipo,
       notas: updateEditData.notas,
     }));
+    set({ isLoading: false });
   },
 
   deleteItem: async (id, url, resultIsConfirmed) => {
     const { detalles } = get();
-
     if (resultIsConfirmed) {
+      set({ isLoading: true }); // Establecer carga a true
       const response = await Delete(url);
 
       if (response) {
         const detallesArray = Array.from(detalles);
-
         if (Array.isArray(detallesArray)) {
           const deleteItem = detallesArray.filter((item) => item.id !== id);
-
           set({ detalles: deleteItem });
         } else {
           console.error("detalles no es un arreglo:", detalles);
@@ -114,21 +115,21 @@ export const useStore = create((set, get) => ({
         });
         return false;
       }
+      set({ isLoading: false }); // Establecer carga a false
       return resultIsConfirmed;
     }
   },
 
   ItemPagado: (cuotaId) => {
     const { detalles } = get();
-
     const { cuotas } = detalles;
-    // si se cumple el fetch que haga todo lo que esta adentro de try de lo contrario retunr false entonces la alerta no salta
+
     try {
       const cuotasActualzadas = cuotas.map((cuota) => {
         if (cuota.id === cuotaId && cuota.estado === "pendiente") {
-          return { ...cuotas, estado: "pagada" };
+          return { ...cuota, estado: "pagada" };
         }
-        return cuotas;
+        return cuota;
       });
       set({ ...detalles, cuotas: cuotasActualzadas });
     } catch (error) {
@@ -136,7 +137,5 @@ export const useStore = create((set, get) => ({
       return false;
     }
     return true;
-
-    //actual;izo el estado local y aca abajo tengo que mandarle los datos albackend
   },
 }));

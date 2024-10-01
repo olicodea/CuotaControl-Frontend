@@ -1,7 +1,30 @@
+import { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import { IoMdClose } from "react-icons/io";
 
+
 export default function NuevoPrestamo({ close, onSubmit, register, handleSubmit }) {
+
+    const [listContacto, setListContacto] = useState([])
+
+    useEffect(() => {
+        try {
+            const fetchContacto = async () => {
+                const url = "../../../../../public/services/ListaContacto.json"
+                const response = await fetch(url)
+                if (!response) return;
+
+                const data = await response.json()
+                setListContacto(data)
+            }
+            fetchContacto()
+
+        } catch (error) {
+            console.log(error)
+
+        }
+    }, [])
+
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
@@ -9,19 +32,25 @@ export default function NuevoPrestamo({ close, onSubmit, register, handleSubmit 
                 <button onClick={close} className="absolute right-4 top-4"><IoMdClose size={20} /></button>
                 <h1 className="text-2xl font-semibold text-center mb-4">Agregar nuevo préstamo</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
-                    <label htmlFor="nombre" className="flex flex-col">
-                        <span>Nombre:</span>
-                        <input {...register("nombre", { required: true })} type="text" className="border border-gray-300 rounded p-2" placeholder="Lautaro... Romina..." />
+                    <label htmlFor="contactoId">
+                        Nombre:
+                        <select {...register("contactoId", { required: true })}>{
+                            listContacto.map((contact, i) => {
+                                return <option key={i} value={contact.contactoId}>
+                                    {contact.nombre}
+                                </option>
+                            })}
+                        </select>
                     </label>
 
                     <div className="flex gap-3">
                         <label htmlFor="monto" className="flex flex-col w-1/2"> {/* Monto y fecha en columnas */}
                             <span>Monto:</span>
-                            <input {...register("monto", { required: true })} type="number" min={0} className="border border-gray-300 rounded p-2" placeholder="$" />
+                            <input {...register("monto", { required: true, valueAsNumber: true })} type="number" min={0} className="border border-gray-300 rounded p-2" placeholder="$" />
                         </label>
                         <label htmlFor="fechaInicio" className="flex flex-col w-1/2">
                             <span>Fecha de Inicio:</span>
-                            <input {...register("fechaInicio")} type="date" className="border border-gray-300 rounded p-2" />
+                            <input {...register("fechaInicio", { valueAsDate: true })} type="date" className="border border-gray-300 rounded p-2" />
                         </label>
                     </div>
 
@@ -41,7 +70,7 @@ export default function NuevoPrestamo({ close, onSubmit, register, handleSubmit 
 
                     <label htmlFor="cantidadCuotas" className="flex flex-col">
                         <span>Cantidad de Cuotas:</span>
-                        <input {...register("cantidadCuotas", { required: true })} type="number" min={0} max={12} className="border border-gray-300 rounded p-2" />
+                        <input {...register("cantidadCuotas", { required: true, valueAsNumber: true })} type="number" min={0} max={12} className="border border-gray-300 rounded p-2" />
                     </label>
 
                     <Button name="Guardar" type="submit" />

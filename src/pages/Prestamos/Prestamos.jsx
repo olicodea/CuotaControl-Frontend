@@ -6,6 +6,7 @@ import ContainerCard from "../../components/PagesComponents/Prestamos/Card/Conta
 import { Link } from "react-router-dom";
 
 import { IoIosArrowBack } from "react-icons/io";
+import Loading from "../../components/Loading/Loading";
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
 const prestamosEndpoint = import.meta.env.VITE_PRESTAMOS_ENDPOINT;
 const userId = import.meta.env.VITE_USER_ID;
@@ -15,10 +16,11 @@ export default function Prestamos() {
     const [filter, setFilter] = useState('all');
     const [stateFilter, setStateFilter] = useState([])
     const { styleDarkHome, selectTheme } = useTheme()
-    const { fetchPrestamos, getPrestamos
+    const { fetchPrestamos, getPrestamos, isLoading
     } = useStore(state => ({
         fetchPrestamos: state.fetchPrestamos,
-        getPrestamos: state.getPrestamos
+        getPrestamos: state.getPrestamos,
+        isLoading: state.isLoading
     }))
 
 
@@ -48,11 +50,15 @@ export default function Prestamos() {
 
     return (
         <div className={`${styleDarkHome} h-12/12`}>
-            <HeaderPrestamo handleChangeFilter={handleChangeFilter} filte={filter} selectTheme={selectTheme} />
-            <main className="w-screen h-auto" >
-                <h4 className="pl-4">{filter === 'dado' ? "Prestados" : filter === 'pedido' ? "Pedidos" : "Todos"}</h4>
-                <ContainerCard stateFilter={stateFilter} />
-            </main>
+            {
+                isLoading ? <Loading /> : <>
+                    <HeaderPrestamo handleChangeFilter={handleChangeFilter} filte={filter} selectTheme={selectTheme} />
+                    <main className="w-screen h-auto" >
+                        <h4 className="pl-4">{filter === 'dado' ? "Prestados" : filter === 'pedido' ? "Pedidos" : "Todos"}</h4>
+                        <ContainerCard stateFilter={stateFilter} />
+                    </main>
+                </>
+            }
             <footer className="p-5 flex items-center">
                 {filter === 'all' ? <Link to='/' className="flex  items-center cursor-pointer"><IoIosArrowBack /> Atras</Link> : ''}
             </footer>
