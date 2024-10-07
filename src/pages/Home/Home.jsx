@@ -23,7 +23,7 @@ export default function Home() {
         isLoading: state.isLoading,
     }));
     const [openForm, setOpenForm] = useState(false);
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
     useEffect(() => {
         const url = `${apiUrl}/api${homeEndpoint}?userId=${userId}`;
@@ -36,6 +36,7 @@ export default function Home() {
 
     const onSubmit = (data) => {
         const url = `${apiUrl}/api${loansEndpoint}`;
+
         AddPrestamo(url, data, userId);
         setOpenForm(false);
     };
@@ -61,6 +62,7 @@ export default function Home() {
                                     register={register}
                                     handleSubmit={handleSubmit}
                                     onSubmit={onSubmit}
+                                    errors={errors}
                                 />
                             )}
                         </>

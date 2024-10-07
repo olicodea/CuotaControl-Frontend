@@ -3,6 +3,7 @@ import ButtonTeheme from "./ButtonTheme/ButtonTeheme";
 import { Sling as Hamburger } from 'hamburger-react';
 import { ThemeContextCustom } from "../Context/ThemeContext";
 import { Link } from "react-router-dom";
+import logo from "../../../src/assets/img/logo.png"
 
 
 export default function Nav() {
@@ -27,7 +28,8 @@ export default function Nav() {
     const fontNav = `${theme === 'dark' ? 'text-slate-100' : ' text-slate-950'} text-xl `;
     return (
         <header className="w-screen flex items-center justify-between p-4 bg-slate-600 h-14 ">
-            <h2 className={`${fontNav} font-semibold`}>Couta Control</h2>
+
+            <img src={logo} className={`${fontNav} size-60 relative right-10 w-auto`} />
 
             <div className=" z-40 flex items-center gap-3">
 

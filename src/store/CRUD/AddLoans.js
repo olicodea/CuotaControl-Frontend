@@ -1,6 +1,6 @@
 const formatDate = (dateString) => {
-  const [year, month, day] = new Date(dateString)
-    .toLocaleDateString("es-ES")
+  const [day, month, year] = new Date(dateString)
+    .toLocaleDateString("es-AR")
     .split("/");
   return `${day}/${month}/${year}`; // Formato DD/MM/YYYY
 };
@@ -14,6 +14,7 @@ export const AddLoans = async (url, dataAddLoans, id) => {
     notas,
     tipoPrestamo,
   } = dataAddLoans;
+  //validad los updateLoans
 
   const updateLoans = {
     tipoPrestamo: tipoPrestamo,
@@ -24,6 +25,8 @@ export const AddLoans = async (url, dataAddLoans, id) => {
     usuarioId: id,
     cantidadCuotas: cantidadCuotas,
   };
+
+  console.log(updateLoans);
 
   try {
     const response = await fetch(url, {
