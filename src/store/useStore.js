@@ -8,6 +8,7 @@ export const useStore = create((set, get) => ({
   getData: [],
   getPrestamos: [],
   detalles: [],
+  listContacto: [],
   isLoading: false,
 
   fetchData: async (url) => {
@@ -46,8 +47,6 @@ export const useStore = create((set, get) => ({
   },
 
   fetchDetalles: async (url) => {
-    const { detalles } = get();
-    console.log(detalles);
     set({ isLoading: true });
     try {
       const response = await fetch(url);
@@ -138,4 +137,16 @@ export const useStore = create((set, get) => ({
     }
     return true;
   },
+
+  fetchContactList: async (url) => {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) return;
+      const list = await res.json();
+      set({ listContacto: list });
+    } catch (error) {
+      console.log(error);
+    }
+  },
 }));
+//crear item List contacto y ahcer el fetching a la url http://localhost:5000/api/contacts?userId=66e32f2648ce6527d50c5557
