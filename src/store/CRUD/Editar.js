@@ -1,5 +1,4 @@
 export const Editar = async (url, dataEdit) => {
-  console.log(dataEdit);
   try {
     const response = await fetch(url, {
       method: "PATCH",
@@ -8,7 +7,7 @@ export const Editar = async (url, dataEdit) => {
       },
       body: JSON.stringify(dataEdit),
     });
-
+    console.log(response.status);
     if (!response) return console.log(`error`);
     const data = await response.json();
     return data;

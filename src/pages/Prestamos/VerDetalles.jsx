@@ -8,7 +8,6 @@ import useTheme from '../../components/Hooks/useTheme';
 import { IoFilterSharp } from "react-icons/io5";
 import CheckBox from '../../components/PagesComponents/Prestamos/CheckBox/CheckBox';
 import useFiltrarCuotas from '../../components/Hooks/useFiltrarCuotas';
-import useAlert from '../../components/Hooks/useAlert';
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
 const prestamosDetailEnpoint = import.meta.env.VITE_PRESTAMOS_DETAIL_ENDPOINT;
@@ -16,19 +15,20 @@ const prestamosDetailEnpoint = import.meta.env.VITE_PRESTAMOS_DETAIL_ENDPOINT;
 export default function VerDetalles() {
     const { id } = useParams();
 
+
     const { styleDarkHome } = useTheme();
     const [openCheck, setOpenCheck] = useState(false);
     const [valueCheck, setValueCheck] = useState({
         pendiente: false,
         pagada: false
     });
+
     const { fetchDetalles, detalles, ItemPagado } = useStore(state => ({
         fetchDetalles: state.fetchDetalles,
         detalles: state.detalles,
         ItemPagado: state.ItemPagado
 
     }));
-    const { alertPago } = useAlert()
 
     useEffect(() => {
 
@@ -46,9 +46,7 @@ export default function VerDetalles() {
 
 
     const handleClickPagado = (cuotaId) => {
-
-        const isSucces = ItemPagado(cuotaId)
-        isSucces ? alertPago() : null
+        ItemPagado(cuotaId)
     };
 
     return (
@@ -70,9 +68,9 @@ export default function VerDetalles() {
                 </div>
 
                 <div className="snap-proximity snap-y overflow-y-auto h-96 p-2 border-t m-auto w-11/12">
-                    {filterCuotas.map((cuota, index) => (
+                    {filterCuotas.map((cuota) => (
                         <CardCuotas
-                            key={cuota.id || index}
+                            key={cuota.id}
                             id={cuota.id}
                             cuota={cuota.cuota}
                             vencimiento={cuota.fecha}

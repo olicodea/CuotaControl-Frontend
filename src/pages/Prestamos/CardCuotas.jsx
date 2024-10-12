@@ -4,6 +4,7 @@ import { GrRevert } from "react-icons/gr";
 
 const CardCuotas = ({ cuota, vencimiento, estado, monto, handleClickPagado, id }) => {
 
+
     const { darkCard } = useTheme();
 
     return (
