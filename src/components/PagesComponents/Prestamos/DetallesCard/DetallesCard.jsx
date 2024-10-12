@@ -7,6 +7,7 @@ import useTheme from '../../../Hooks/useTheme';
 import Range from "../../Inicio/Range/Range";
 import { useStore } from '../../../../store/useStore';
 import { useNavigate } from "react-router-dom"
+import useAlert from '../../../Hooks/useAlert';
 const apiUrl = import.meta.env.VITE_API_BASE_URL
 const prestamoDelete = import.meta.env.VITE_PRESTAMOS_ENDPOINT
 
@@ -19,12 +20,13 @@ export default function DetallesCard({ obj }) {
     const { handleSubmit, register, reset, setFocus } = useForm();
     const { EditDetalles, deleteItem } = useStore(state => ({ EditDetalles: state.EditDetalles, deleteItem: state.deleteItem }));
     const navigate = useNavigate()
+    const { alertConfirm } = useAlert()
 
     const restante = monto - totalCobrado;
 
     useEffect(() => {
         if (isEditing) {
-            setFocus('nombreContacto');
+            setFocus('tipo');
         }
     }, [isEditing, setFocus]);
 
@@ -41,7 +43,8 @@ export default function DetallesCard({ obj }) {
 
     const handleClickDelete = async () => {
         const urlDelete = `${apiUrl}/api${prestamoDelete}?loanId=${id}`;
-        const isDelete = await deleteItem(id, urlDelete)
+        const isConfirm = await alertConfirm()
+        const isDelete = await deleteItem(id, urlDelete, isConfirm)
         if (isDelete) {
             navigate('/prestamos')
         }
@@ -63,11 +66,14 @@ export default function DetallesCard({ obj }) {
                 <form onSubmit={handleSubmit(handleChange)} className="flex flex-col p-2 gap-2">
                     <label htmlFor="nombreContacto">
                         Contacto: {' '}
-                        <input type="text" {...register("nombreContacto")} disabled={!isEditing} className="bg-transparent border-none" />
+                        <input type="text" {...register("nombreContacto")} disabled className="bg-transparent border-none" />
                     </label>
                     <label htmlFor="tipo">
                         Tipo: {' '}
-                        <input type="text" {...register("tipo")} disabled={!isEditing} className="bg-transparent border-none" />
+                        <select type="select" {...register("tipo")} disabled={!isEditing} className={`bg-transparent border-none ${isEditing ? '' : 'appearance-none '}`} >
+                            <option value="prestado" >Prestado</option>
+                            <option value="pedido">Pedido</option>
+                        </select>
                     </label>
                     <label htmlFor="monto">
                         Total prestado: $

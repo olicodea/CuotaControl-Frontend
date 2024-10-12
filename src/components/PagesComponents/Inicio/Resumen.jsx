@@ -16,6 +16,7 @@ export default function Resumen() {
 
 
 
+
     return (
         <section className={`flex flex-col justify-start p-4 gap-5 w-12/12 m-auto `}>
             <h1 className="font-semibold text-xl">Resumen</h1>
