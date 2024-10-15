@@ -37,7 +37,7 @@ export const useStore = create((set, get) => ({
         return;
       }
       const dataPrestamos = await response.json();
-      console.log(dataPrestamos);
+
       set({ getPrestamos: dataPrestamos });
     } catch (error) {
       console.error("Error en la solicitud de préstamos:", error);
@@ -63,10 +63,10 @@ export const useStore = create((set, get) => ({
     }
   },
 
-  AddPrestamo: async (url, data, id) => {
+  AddPrestamo: async (url, data) => {
     set({ isLoading: true });
 
-    const response = await AddLoans(url, data, id);
+    const response = await AddLoans(url, data);
     if (!response) return;
 
     console.log(response);
@@ -93,19 +93,19 @@ export const useStore = create((set, get) => ({
   },
 
   deleteItem: async (id, url, resultIsConfirmed) => {
+    if (!resultIsConfirmed) return false;
+
     const { detalles } = get();
-    if (resultIsConfirmed) {
-      set({ isLoading: true }); // Establecer carga a true
+    set({ isLoading: true });
+
+    try {
       const response = await Delete(url);
 
-      if (response) {
-        const detallesArray = Array.from(detalles);
-        if (Array.isArray(detallesArray)) {
-          const deleteItem = detallesArray.filter((item) => item.id !== id);
-          set({ detalles: deleteItem });
-        } else {
-          console.error("detalles no es un arreglo:", detalles);
-        }
+      if (response && Array.isArray(detalles)) {
+        set((state) => ({
+          ...state,
+          detalles: detalles.filter((item) => item.id !== id),
+        }));
       } else {
         Swal.fire({
           title: "Error",
@@ -114,9 +114,19 @@ export const useStore = create((set, get) => ({
         });
         return false;
       }
-      set({ isLoading: false }); // Establecer carga a false
-      return resultIsConfirmed;
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: "Ha ocurrido un problema. Inténtalo más tarde.",
+        icon: "error",
+      });
+      console.error(error);
+      return false;
+    } finally {
+      set({ isLoading: false });
     }
+
+    return true;
   },
 
   ItemPagado: (cuotaId) => {
@@ -148,5 +158,24 @@ export const useStore = create((set, get) => ({
       console.log(error);
     }
   },
+  addContactoList: async (url, data) => {
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        return false;
+      }
+
+      return true;
+    } catch (error) {
+      console.error("Error al agregar el contacto:", error);
+      return false;
+    }
+  },
 }));
-//crear item List contacto y ahcer el fetching a la url http://localhost:5000/api/contacts?userId=66e32f2648ce6527d50c5557

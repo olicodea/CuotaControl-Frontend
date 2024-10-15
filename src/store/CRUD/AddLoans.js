@@ -5,15 +5,9 @@ const formatDate = (dateString) => {
   return `${day}/${month}/${year}`; // Formato DD/MM/YYYY
 };
 
-export const AddLoans = async (url, dataAddLoans, id) => {
-  const {
-    cantidadCuotas,
-    contactoId,
-    fechaInicio,
-    monto,
-    notas,
-    tipoPrestamo,
-  } = dataAddLoans;
+export const AddLoans = async (url, dataAddLoans) => {
+  const { cantidadCuotas, usuarioId, fechaInicio, monto, notas, tipoPrestamo } =
+    dataAddLoans;
   //validad los updateLoans
 
   const updateLoans = {
@@ -21,8 +15,7 @@ export const AddLoans = async (url, dataAddLoans, id) => {
     monto: monto,
     fechaInicio: formatDate(fechaInicio),
     notas: notas,
-    contactoId: contactoId,
-    usuarioId: id,
+    usuarioId: usuarioId,
     cantidadCuotas: cantidadCuotas,
   };
 
@@ -36,7 +29,6 @@ export const AddLoans = async (url, dataAddLoans, id) => {
       },
       body: JSON.stringify(updateLoans),
     });
-    console.log(response.status);
 
     if (!response.ok) {
       throw new Error(`Error en la solicitud: ${response.status}`);

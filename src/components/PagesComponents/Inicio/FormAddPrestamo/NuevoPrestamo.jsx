@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import { IoMdClose } from "react-icons/io";
 
+const apiUrl = import.meta.env.VITE_API_BASE_URL;
+const userId = import.meta.env.VITE_USER_ID;
 export default function NuevoPrestamo({ close, onSubmit, register, handleSubmit, errors }) {
 
-    const [listContacto, setListContacto] = useState([])
+    const [listContactos, setListContacto] = useState([])
 
     useEffect(() => {
         try {
             const fetchContacto = async () => {
-                const url = "../../../../../public/services/ListaContacto.json"
+                const url = `${apiUrl}/api/contacts?userId=${userId}`
+
                 const response = await fetch(url)
                 if (!response) return;
 
@@ -24,6 +27,8 @@ export default function NuevoPrestamo({ close, onSubmit, register, handleSubmit,
     }, [])
 
 
+
+
     const styleErrors = 'text-red-500 text text-sm justify-center items-center flex';
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
@@ -34,16 +39,18 @@ export default function NuevoPrestamo({ close, onSubmit, register, handleSubmit,
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
 
                     {/* Nombre */}
-                    <label htmlFor="contactoId">
+                    <label htmlFor="usuarioId">
                         Nombre:
-                        <select {...register("contactoId", { required: 'Por favor seleccione un contacto' })}>
-                            {listContacto.map((contact, i) => {
-                                return <option key={i} value={contact.contactoId}>
+                        <select {...register("usuarioId", { required: 'Por favor seleccione un contacto' })}>
+                            {listContactos.map((contact, i) => {
+                                console.log(contact)
+                                return <option key={i} value={contact.usuarioId
+                                }>
                                     {contact.nombre}
                                 </option>
                             })}
                         </select>
-                        {errors.contactoId && <span className={styleErrors}>{errors.contactoId.message}</span>}
+                        {errors.usuarioId && <span className={styleErrors}>{errors.usuarioId.message}</span>}
                     </label>
 
                     <div className="flex gap-3">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useStore } from "../../store/useStore";
 import CardContacto from "../../components/PagesComponents/Contactos/CardContacto";
 import { IoFilterSharp } from "react-icons/io5";
@@ -9,12 +9,15 @@ import { useForm } from "react-hook-form";
 import { Slide, toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import '../Contacto/StyleContacto.css'
+const userId = import.meta.env.VITE_USER_ID;
+
 
 export default function Contacto() {
     const { styleDarkHome } = useTheme();
-    const { listContacto, fetchContactList } = useStore((state) => ({
+    const { listContacto, fetchContactList, addContactoList } = useStore((state) => ({
         listContacto: state.listContacto,
         fetchContactList: state.fetchContactList,
+        addContactoList: state.addContactoList
     }));
 
     const [openForm, setOpenForm] = useState(false);
@@ -30,17 +33,29 @@ export default function Contacto() {
         setOpenForm(prev => !prev);
     };
 
-    const handleChangeData = (data) => {
-        console.log(data,); // mandar el usuario Id de la persona que agrego al contaco 
-        if (data) {
-            toast.success('¡Contacto agregado exitosamente!', {
-                className: "toast-message"
-            });
+    const handleChangeData = useCallback((data) => {
 
-            reset();
-            setOpenForm(false)
-        }
-    };
+        addContactoList('http://localhost:5000/api/contacts?', { ...data, userId: String(userId) }).then((res) => {
+            if (res) {
+                toast.success('¡Contacto agregado exitosamente!', {
+                    className: "toast-message"
+                });
+                reset(); // Limpiar el formulario
+                setOpenForm(false); // Cerrar el formulario
+            }
+        })
+
+
+
+
+
+
+    }, [reset, addContactoList]);
+
+
+
+
+
 
     return (
         <div className={`w-screen h-screen ${styleDarkHome}`}>

@@ -36,8 +36,7 @@ export default function Home() {
 
     const onSubmit = (data) => {
         const url = `${apiUrl}/api${loansEndpoint}`;
-
-        AddPrestamo(url, data, userId);
+        AddPrestamo(url, data);
         setOpenForm(false);
     };
 
