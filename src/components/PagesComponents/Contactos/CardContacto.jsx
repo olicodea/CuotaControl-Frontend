@@ -5,7 +5,7 @@ export default function CardContacto({ nombre, telefono, email, notas }) {
 
     const { darkCard, pDark } = useTheme()
     return (
-        <div className={`p-2 ${darkCard} cardStyle`}>
+        <div className={`p-2 ${darkCard} cardStyle m-auto w-11/12`}>
             <h2 className={pDark}>Nombre: {nombre}</h2>
             <p className={pDark}>Telefono: {telefono}</p>
             <p className={pDark}>Email: {email !== undefined ? email : 'No hay Mail'}</p>

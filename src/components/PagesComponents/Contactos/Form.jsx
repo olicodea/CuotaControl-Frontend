@@ -45,7 +45,6 @@ export default function FormContacto({ handleChangeData, register, handleSubmit,
                             className="border border-gray-300 rounded p-2"
                             placeholder="Ingresa el teléfono"
                             {...register("telefono", {
-                                required: "El teléfono es requerido",
                                 pattern: {
                                     value: /^[0-9]+$/,
                                     message: "El teléfono solo debe contener números"

@@ -1,7 +1,6 @@
 
 import "../Card/card.css"
 import useTheme from "../../../Hooks/useTheme"
-import PropTypes from 'prop-types';
 
 export default function Card({ title, cuota, fecha }) {
     const { darkCard, pDark } = useTheme()
@@ -14,8 +13,3 @@ export default function Card({ title, cuota, fecha }) {
         </article>
     )
 }
-Card.propTypes = {
-    title: PropTypes.string.isRequired,
-    cuota: PropTypes.string.isRequired,
-    fecha: PropTypes.string.isRequired
-};

@@ -9,7 +9,10 @@ import { useForm } from "react-hook-form";
 import { Slide, toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import '../Contacto/StyleContacto.css'
+
+const url = import.meta.env.VITE_API_BASE_URL
 const userId = import.meta.env.VITE_USER_ID;
+const contactsUrl = import.meta.env.VITE_CONTACTOS_ENPOINT
 
 
 export default function Contacto() {
@@ -33,17 +36,18 @@ export default function Contacto() {
         setOpenForm(prev => !prev);
     };
 
-    const handleChangeData = useCallback((data) => {
+    const handleChangeData = useCallback(async (data) => {
+        const uptDateContact = { ...data, userId: String(userId) }
+        console.log(uptDateContact)
 
-        addContactoList('http://localhost:5000/api/contacts?', { ...data, userId: String(userId) }).then((res) => {
-            if (res) {
-                toast.success('¡Contacto agregado exitosamente!', {
-                    className: "toast-message"
-                });
-                reset(); // Limpiar el formulario
-                setOpenForm(false); // Cerrar el formulario
-            }
-        })
+        const res = await addContactoList(`${url}/api${contactsUrl}`, uptDateContact)
+        if (res) {
+            toast.success('¡Contacto agregado exitosamente!', {
+                className: "toast-message"
+            });
+            reset();
+            setOpenForm(false);
+        }
 
 
 
@@ -65,7 +69,7 @@ export default function Contacto() {
                     <IoFilterSharp size={30} className="cursor-pointer" />
                 </header>
 
-                <section className="flex flex-col gap-5 p-5 w-screen bg-slate-500 h-[60vh]">
+                <section className="flex flex-col p-2 w-screen  h-[60vh]">
                     {listContacto.map((contacto, i) => (
                         <CardContacto key={i} nombre={contacto.nombre} telefono={contacto.telefono} notas={contacto.notas} />
                     ))}

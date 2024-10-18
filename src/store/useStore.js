@@ -69,7 +69,6 @@ export const useStore = create((set, get) => ({
     const response = await AddLoans(url, data);
     if (!response) return;
 
-    console.log(response);
     set({ isLoading: false });
   },
 
@@ -158,6 +157,7 @@ export const useStore = create((set, get) => ({
       console.log(error);
     }
   },
+
   addContactoList: async (url, data) => {
     try {
       const res = await fetch(url, {
@@ -172,6 +172,9 @@ export const useStore = create((set, get) => ({
         return false;
       }
 
+      set((state) => ({
+        listContacto: [...state.listContacto, data],
+      }));
       return true;
     } catch (error) {
       console.error("Error al agregar el contacto:", error);
