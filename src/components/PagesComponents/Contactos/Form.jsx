@@ -18,7 +18,7 @@ export default function FormContacto({ handleChangeData, register, handleSubmit,
 
                 <form className="flex flex-col gap-3" onSubmit={handleSubmit(handleChangeData)}>
 
-                    {/* Nombre */}
+
                     <label htmlFor="nombre" className="flex flex-col">
                         <span>Nombre:</span>
                         <input
@@ -36,7 +36,7 @@ export default function FormContacto({ handleChangeData, register, handleSubmit,
                         {errors.nombre && <p className={styleErrors}>{errors.nombre.message}</p>}
                     </label>
 
-                    {/* Teléfono */}
+
                     <label htmlFor="telefono" className="flex flex-col">
                         <span>Teléfono:</span>
                         <input
@@ -54,7 +54,7 @@ export default function FormContacto({ handleChangeData, register, handleSubmit,
                         {errors.telefono && <p className={styleErrors}>{errors.telefono.message}</p>}
                     </label>
 
-                    {/* Email */}
+
                     <label htmlFor="email" className="flex flex-col">
                         <span>Email:</span>
                         <input
@@ -73,7 +73,7 @@ export default function FormContacto({ handleChangeData, register, handleSubmit,
                         {errors.email && <p className={styleErrors}>{errors.email.message}</p>}
                     </label>
 
-                    {/* Notas */}
+
                     <label htmlFor="notas" className="flex flex-col">
                         <span>Notas:</span>
                         <textarea
@@ -90,7 +90,7 @@ export default function FormContacto({ handleChangeData, register, handleSubmit,
                         {errors.notas && <p className={styleErrors}>{errors.notas.message}</p>}
                     </label>
 
-                    {/* Botón Agregar */}
+
                     <Button
                         type="submit"
                         style="mb-6 flex m-auto pl-5 pr-5"

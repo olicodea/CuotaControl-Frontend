@@ -188,6 +188,9 @@ export const useStore = create((set, get) => ({
   deleteContact: async (url, usuarioId) => {
     const { listContacto } = get();
     console.log(listContacto);
+    listContacto.forEach((element) => {
+      console.log(element.usuarioId);
+    });
     const res = await fetch(url, { method: "DELETE" });
 
     if (res.ok) {
@@ -200,6 +203,39 @@ export const useStore = create((set, get) => ({
       }));
     } else {
       console.error("Error al eliminar el contacto:", await res.json());
+    }
+  },
+  editContact: async (url, dataEdit) => {
+    const updateDataContact = {
+      contactId: dataEdit.idOpenModal,
+      nombre: dataEdit.nombre,
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updateDataContact),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al actualizar el contacto");
+      }
+      const res = await response.json();
+      if (res === null) {
+        set((state) => ({
+          listContacto: state.listContacto.map((contact) =>
+            contact.usuarioId === dataEdit.usuarioId
+              ? { ...contact, ...updateDataContact }
+              : contact
+          ),
+        }));
+      }
+      return true;
+    } catch (error) {
+      console.error("Error al editar el contacto:", error);
     }
   },
 }));

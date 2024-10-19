@@ -22,6 +22,7 @@ function App() {
                 <Route path='/prestamos' element={<Prestamos />} />
                 <Route path='/contacto' element={<Contacto />} />
                 <Route path='/ver-detalles/:id' element={<VerDetalles />} />
+
                 <Route path='*' element={<NotPage />} />
 
             </Routes>

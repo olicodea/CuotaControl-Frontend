@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { Slide, toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import '../Contacto/StyleContacto.css'
+import ModalEditContact from "../../components/PagesComponents/Contactos/ModalEditContact";
 
 const url = import.meta.env.VITE_API_BASE_URL
 const userId = import.meta.env.VITE_USER_ID;
@@ -16,19 +17,25 @@ const contactsUrl = import.meta.env.VITE_CONTACTOS_ENPOINT
 
 
 export default function Contacto() {
-    const { styleDarkHome } = useTheme();
-    const { listContacto, fetchContactList, addContactoList } = useStore((state) => ({
+
+    const { listContacto, fetchContactList, addContactoList, editContact } = useStore((state) => ({
         listContacto: state.listContacto,
         fetchContactList: state.fetchContactList,
-        addContactoList: state.addContactoList
+        addContactoList: state.addContactoList,
+        editContact: state.editContact
     }));
 
+    const { styleDarkHome } = useTheme();
     const [openForm, setOpenForm] = useState(false);
-
+    const [openEditModal, setOpenEditModal] = useState(false)
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const [idOpenModal, setIdOpenModal] = useState('')
+
+
 
     useEffect(() => {
         const url = "http://localhost:5000/api/contacts?userId=66e32f2648ce6527d50c5557";
+
         fetchContactList(url);
     }, [fetchContactList]);
 
@@ -54,7 +61,23 @@ export default function Contacto() {
     }, [reset, addContactoList]);
 
 
+    const handleOpenModalEdit = (id) => {
 
+        setIdOpenModal(id)
+        setOpenEditModal(state => !state)
+
+    }
+    const handleCloseModalEdit = () => {
+        setOpenEditModal(false)
+        console.log("se ah cancelado la edicion")
+    }
+
+    const handleSaveEdit = async (dataEdit) => {
+        const updateEditData = { ...dataEdit, idOpenModal }
+        const res = await editContact('http://localhost:5000/api/contacts', updateEditData)
+
+        if (res) setOpenEditModal(false)
+    }
 
 
 
@@ -70,7 +93,7 @@ export default function Contacto() {
                     {listContacto.map((contacto, i) => (
 
                         <CardContacto key={i} nombre={contacto.nombre} telefono={contacto.telefono} notas={contacto.notas}
-                            usuarioId={contacto.usuarioId} />
+                            usuarioId={contacto.usuarioId} handleOpenModalEdit={handleOpenModalEdit} />
                     ))}
                 </section>
 
@@ -85,7 +108,18 @@ export default function Contacto() {
                         handleChangeData={handleChangeData}
                     />
                 )}
+                {
+                    openEditModal && (
+                        <ModalEditContact
+                            openEditModal={openEditModal}
+                            handleCloseModalEdit={handleCloseModalEdit}
+                            handleSaveEdit={handleSaveEdit}
+                            idOpenModal={idOpenModal || ''}
 
+                        />
+                    )
+
+                }
                 <ToastContainer
                     position="top-right"
                     autoClose={1000}
