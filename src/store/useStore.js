@@ -211,6 +211,17 @@ export const useStore = create((set, get) => ({
       nombre: dataEdit.nombre,
     };
 
+    const dataLocal = {
+      nombre: dataEdit.nombre,
+      usuarioId: dataEdit.idOpenModal,
+      email: dataEdit.email,
+      telefono: dataEdit.telefono,
+      nota: dataEdit.nota,
+    };
+
+    const { listContacto } = get();
+    console.log(listContacto[0], dataEdit);
+
     try {
       const response = await fetch(url, {
         method: "PATCH",
@@ -227,8 +238,8 @@ export const useStore = create((set, get) => ({
       if (res === null) {
         set((state) => ({
           listContacto: state.listContacto.map((contact) =>
-            contact.usuarioId === dataEdit.usuarioId
-              ? { ...contact, ...updateDataContact }
+            contact.usuarioId === dataLocal.usuarioId
+              ? { ...contact, ...dataLocal }
               : contact
           ),
         }));

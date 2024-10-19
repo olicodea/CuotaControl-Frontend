@@ -74,8 +74,8 @@ export default function Contacto() {
 
     const handleSaveEdit = async (dataEdit) => {
         const updateEditData = { ...dataEdit, idOpenModal }
-        const res = await editContact('http://localhost:5000/api/contacts', updateEditData)
-
+        console.log(updateEditData)
+        const res = await editContact(`${url}/api${contactsUrl}`, updateEditData)
         if (res) setOpenEditModal(false)
     }
 

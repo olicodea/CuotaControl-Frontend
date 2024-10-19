@@ -8,15 +8,7 @@ export default function ModalEditContact({ openEditModal, handleCloseModalEdit, 
     const { listContacto } = useStore((state) => ({
         listContacto: state.listContacto,
     }));
-    const { register, handleSubmit, formState: { errors }, reset } = useForm({
-
-        defaultValues: {
-            nombre: 'pepe',
-            telefono: "2213149318",
-            email: "gianb04@gmail.com",
-            nota: "Le presté dinero para xx"
-        }
-    });
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
     const infoUserActual = useMemo(() => {
         return listContacto.find((contact) => contact.usuarioId === idOpenModal)
@@ -46,7 +38,6 @@ export default function ModalEditContact({ openEditModal, handleCloseModalEdit, 
 
                 <h1 className="text-2xl font-semibold text-center mb-4">Editar Contacto</h1>
 
-                {/* Envolvemos el formulario con handleSubmit */}
                 <form className="flex flex-col gap-3" onSubmit={handleSubmit(handleSaveEdit)}>
 
                     <label htmlFor="nombre" className="flex flex-col">
@@ -54,7 +45,7 @@ export default function ModalEditContact({ openEditModal, handleCloseModalEdit, 
                         <input
                             type="text"
                             className="border border-gray-300 rounded p-2"
-                            {...register('nombre', { required: 'El nombre es requerido' })}
+                            {...register('nombre')}
                         />
                         {errors.nombre && <p className="text-red-500 text-sm">{errors.nombre.message}</p>}
                     </label>
@@ -75,7 +66,6 @@ export default function ModalEditContact({ openEditModal, handleCloseModalEdit, 
                             type="email"
                             className="border border-gray-300 rounded p-2"
                             {...register('email', {
-                                required: 'El email es requerido',
                                 pattern: {
                                     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                                     message: 'Ingresa un email válido'
