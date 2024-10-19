@@ -147,6 +147,7 @@ export const useStore = create((set, get) => ({
     return true;
   },
 
+  //Contact
   fetchContactList: async (url) => {
     try {
       const res = await fetch(url);
@@ -171,14 +172,34 @@ export const useStore = create((set, get) => ({
       if (!res.ok) {
         return false;
       }
+      const newContact = await res.json();
 
+      console.log(newContact);
       set((state) => ({
-        listContacto: [...state.listContacto, data],
+        listContacto: [newContact, ...state.listContacto],
       }));
       return true;
     } catch (error) {
       console.error("Error al agregar el contacto:", error);
       return false;
+    }
+  },
+
+  deleteContact: async (url, usuarioId) => {
+    const { listContacto } = get();
+    console.log(listContacto);
+    const res = await fetch(url, { method: "DELETE" });
+
+    if (res.ok) {
+      const updatedList = listContacto.filter(
+        (item) => item.usuarioId !== usuarioId
+      );
+      set((state) => ({
+        ...state,
+        listContacto: updatedList,
+      }));
+    } else {
+      console.error("Error al eliminar el contacto:", await res.json());
     }
   },
 }));

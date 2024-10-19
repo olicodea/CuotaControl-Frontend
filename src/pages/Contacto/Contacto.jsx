@@ -38,9 +38,10 @@ export default function Contacto() {
 
     const handleChangeData = useCallback(async (data) => {
         const uptDateContact = { ...data, userId: String(userId) }
-        console.log(uptDateContact)
+
 
         const res = await addContactoList(`${url}/api${contactsUrl}`, uptDateContact)
+
         if (res) {
             toast.success('¡Contacto agregado exitosamente!', {
                 className: "toast-message"
@@ -48,10 +49,6 @@ export default function Contacto() {
             reset();
             setOpenForm(false);
         }
-
-
-
-
 
 
     }, [reset, addContactoList]);
@@ -69,9 +66,11 @@ export default function Contacto() {
                     <IoFilterSharp size={30} className="cursor-pointer" />
                 </header>
 
-                <section className="flex flex-col p-2 w-screen  h-[60vh]">
+                <section className="flex flex-col  gap-3 overflow-hidden  snap-proximity snap-y overflow-y-auto  h-[70vh] p-2 border-t m-auto w-11/12">
                     {listContacto.map((contacto, i) => (
-                        <CardContacto key={i} nombre={contacto.nombre} telefono={contacto.telefono} notas={contacto.notas} />
+
+                        <CardContacto key={i} nombre={contacto.nombre} telefono={contacto.telefono} notas={contacto.notas}
+                            usuarioId={contacto.usuarioId} />
                     ))}
                 </section>
 
